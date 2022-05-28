@@ -28,6 +28,12 @@ namespace SimpleSpawnSystem.Core
             foreach (var spawnData in configuration.SpawnsData)
             {
 
+                if(spawnData.PossibleSpawnPrefabs.Length < 1) 
+                {
+                    Debug.LogWarning("Prefab list for spawn named '" + spawnData.SpawnName + "' not found. Spawn will not be made");
+                    continue;
+                }
+
                 GameObject spawnGO = new GameObject();
 
                 if (spawnData.ChildOfManager) spawnGO.transform.parent = transform;
