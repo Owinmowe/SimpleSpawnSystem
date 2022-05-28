@@ -15,7 +15,17 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Fields
 
-        public SimpleSpawnTimer Timer { get; private set; }
+        public SimpleSpawnTimer Timer 
+        {
+            private set 
+            {
+                timer = value;
+            } 
+            get 
+            {
+                return timer;
+            }
+        }
 
         public SpawnOrderType OrderType 
         {
@@ -27,7 +37,7 @@ namespace SimpleSpawnSystem.Core
                 switch (currentSpawnOrderType)
                 {
                     case SpawnOrderType.Sequential:
-                        currentSequentialSpawn = 0;
+                        CurrentSequentialSpawn = 0;
                         currentSpawnAction = SpawnSequentialUnit;
                         break;
 
@@ -43,7 +53,7 @@ namespace SimpleSpawnSystem.Core
                     default:
                         Debug.LogWarning("Spawn order type not implemented. Spawn order set to sequential.");
                         currentSpawnOrderType = SpawnOrderType.Sequential;
-                        currentSequentialSpawn = 0;
+                        CurrentSequentialSpawn = 0;
                         currentSpawnAction = SpawnSequentialUnit;
                         break;
                 }
@@ -124,13 +134,95 @@ namespace SimpleSpawnSystem.Core
             }
         }
 
-        public Spawnable[] PossibleSpawns { set; get; }
+        public Spawnable[] PossibleSpawns 
+        {
+            private set 
+            {
+                possibleSpawns = value;
+            }
+            get 
+            { 
+                return possibleSpawns; 
+            }
+        }
 
-        public bool ShowSpawnsLines { set; get; } = true;
+        public int CurrentSequentialSpawn
+        {
+            private set 
+            {
+                currentSequentialSpawn = value;
+            }
+            get 
+            {
+                return currentSequentialSpawn;
+            }
+        }
+
+        public float CurrentRandomCircleSpawnSize 
+        {
+            set 
+            {
+                currentRandomCircleSpawnSize = value;
+            }
+            get 
+            {
+                return currentRandomCircleSpawnSize;
+            }
+        }
+
+        public float CurrentRandomSphereSpawnSize 
+        {
+            set 
+            {
+                currentRandomSphereSpawnSize = value;
+            }
+            get 
+            {
+                return currentRandomSphereSpawnSize;
+            }
+        }
+
+        public List<int> CurrentRandomNotRepeatedList 
+        { 
+            private set 
+            {
+                currentRandomNotRepeatedList = value;
+            }
+            get 
+            {
+                return currentRandomNotRepeatedList;
+            }
+        }
+
+        public bool ShowSpawnsLines 
+        {
+            set 
+            {
+                showSpawnsLines = value;
+            }
+            get 
+            {
+                return showSpawnsLines;
+            } 
+        }
 
         #endregion
 
         #region Serializable Fields
+
+        [SerializeField] [HideInInspector] private SimpleSpawnTimer timer = default;
+
+        [SerializeField] [HideInInspector] private Spawnable[] possibleSpawns = default;
+                       
+        [SerializeField] [HideInInspector] private int currentSequentialSpawn = 0;
+                       
+        [SerializeField] [HideInInspector] private float currentRandomCircleSpawnSize = 1.0f;
+                        
+        [SerializeField] [HideInInspector] private float currentRandomSphereSpawnSize = 1.0f;
+                       
+        [SerializeField] [HideInInspector] private List<int> currentRandomNotRepeatedList = new List<int>();
+                        
+        [SerializeField] [HideInInspector] private bool showSpawnsLines = true;
 
         #endregion
 
@@ -152,15 +244,8 @@ namespace SimpleSpawnSystem.Core
 
         private SpawnAreaType currentSpawnAreaType = SpawnAreaType.OnCenterPoint;
 
-        private int currentSequentialSpawn = 0;
-
-        private List<int> currentRandomNotRepeatedList = new List<int>();
-
         private List<Spawnable> spawnedUnits = new List<Spawnable>();
 
-        private float currentRandomCircleSpawnLocation = 1.0f;
-
-        private float currentRandomSphereSpawnLocation = 1.0f;
 
         #endregion
 
@@ -225,8 +310,8 @@ namespace SimpleSpawnSystem.Core
             OrderType = data.OrderType;
 
             AreaType = data.AreaType;
-            currentRandomCircleSpawnLocation = data.CircleRadius;
-            currentRandomSphereSpawnLocation = data.SphereRadius;
+            CurrentRandomCircleSpawnSize = data.CircleRadius;
+            CurrentRandomSphereSpawnSize = data.SphereRadius;
 
             Timer.CurrentTimerType = data.TimerType;
             Timer.FixedTime = data.FixedTime;
@@ -256,39 +341,39 @@ namespace SimpleSpawnSystem.Core
         private void SpawnSequentialUnit() 
         {
 
-            if(currentSequentialSpawn >= PossibleSpawns.Length) currentSequentialSpawn = 0;
+            if(CurrentSequentialSpawn >= PossibleSpawns.Length) CurrentSequentialSpawn = 0;
 
-            var go = Instantiate(PossibleSpawns[currentSequentialSpawn], currentSpawnLocation(), Quaternion.identity, transform);
+            var go = Instantiate(PossibleSpawns[CurrentSequentialSpawn], currentSpawnLocation(), Quaternion.identity, transform);
 
             spawnedUnits.Add(go);
 
-            currentSequentialSpawn++;
+            CurrentSequentialSpawn++;
 
         }
 
         private void SpawnRandomNotRepeatedUnit() 
         {
 
-            var go = Instantiate(PossibleSpawns[currentRandomNotRepeatedList[0]], currentSpawnLocation(), Quaternion.identity, transform);
+            var go = Instantiate(PossibleSpawns[CurrentRandomNotRepeatedList[0]], currentSpawnLocation(), Quaternion.identity, transform);
 
             spawnedUnits.Add(go);
 
-            currentRandomNotRepeatedList.RemoveAt(0);
+            CurrentRandomNotRepeatedList.RemoveAt(0);
 
-            if (currentRandomNotRepeatedList.Count == 0) RecreateSpawnIndexList();
+            if (CurrentRandomNotRepeatedList.Count == 0) RecreateSpawnIndexList();
 
         }
 
         private void RecreateSpawnIndexList() 
         {
-            currentRandomNotRepeatedList.Clear();
+            CurrentRandomNotRepeatedList.Clear();
 
             for (int i = 0; i < PossibleSpawns.Length; i++)
             {
-                currentRandomNotRepeatedList.Add(i);
+                CurrentRandomNotRepeatedList.Add(i);
             }
 
-            currentRandomNotRepeatedList = currentRandomNotRepeatedList.OrderBy(number => Random.Range(0, int.MaxValue)).ToList();
+            CurrentRandomNotRepeatedList = CurrentRandomNotRepeatedList.OrderBy(number => Random.Range(0, int.MaxValue)).ToList();
         }
 
         #endregion
@@ -299,7 +384,7 @@ namespace SimpleSpawnSystem.Core
 
         private Vector3 SpawnLocationRandomCircle()
         {
-            Vector2 randomPos = Random.insideUnitCircle * currentRandomCircleSpawnLocation;
+            Vector2 randomPos = Random.insideUnitCircle * CurrentRandomCircleSpawnSize;
 
             Vector3 finalPos = transform.position;
             finalPos.x += randomPos.x;
@@ -310,7 +395,7 @@ namespace SimpleSpawnSystem.Core
 
         private Vector3 SpawnLocationRandomSphere() 
         {
-            return transform.position + Random.insideUnitSphere * currentRandomSphereSpawnLocation;
+            return transform.position + Random.insideUnitSphere * CurrentRandomSphereSpawnSize;
         }
 
         #endregion

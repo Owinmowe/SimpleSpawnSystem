@@ -46,7 +46,17 @@ namespace SimpleSpawnSystem.Utility
             }
         }
 
-        public float FixedTime { get; set; } = 1;
+        public float FixedTime 
+        {
+            set 
+            {
+                fixedTime = value;
+            }
+            get 
+            {
+                return fixedTime;
+            }
+        }
 
         public float MinRandomTime 
         {
@@ -54,22 +64,22 @@ namespace SimpleSpawnSystem.Utility
             {
                 if (MinRandomTime < 0)
                 {
-                    minRandomSpawnTime = 0;
+                    minRandomTime = 0;
                     Debug.LogWarning("Minimun random time can't be below 0. Time set to 0");
                 }
                 else if (MinRandomTime > MaxRandomTime) 
                 {
-                    minRandomSpawnTime = MaxRandomTime;
+                    minRandomTime = MaxRandomTime;
                     Debug.LogWarning("Minimun random time can't be over the maximun random time. Time set to the maximun random time.");
                 }
                 else 
                 {
-                    minRandomSpawnTime = value;
+                    minRandomTime = value;
                 }
             } 
             get 
             {
-                return minRandomSpawnTime;
+                return minRandomTime;
             }
         }
 
@@ -77,19 +87,19 @@ namespace SimpleSpawnSystem.Utility
         {
             set
             {
-                if (maxRandomSpawnTime < MinRandomTime)
+                if (maxRandomTime < MinRandomTime)
                 {
-                    maxRandomSpawnTime = MinRandomTime;
+                    maxRandomTime = MinRandomTime;
                     Debug.LogWarning("Maximun random time can't be over the minimun random time. Time set to the minimun random time.");
                 }
                 else
                 {
-                    maxRandomSpawnTime = value;
+                    maxRandomTime = value;
                 }
             }
             get
             {
-                return maxRandomSpawnTime;
+                return maxRandomTime;
             }
         }
 
@@ -101,15 +111,17 @@ namespace SimpleSpawnSystem.Utility
 
         #region Serializable Fields
 
+        [SerializeField] [HideInInspector] private float currentTime = 0;
+
+        [SerializeField] [HideInInspector] private float minRandomTime = 1;
+
+        [SerializeField] [HideInInspector] private float maxRandomTime = 2;
+
+        [SerializeField] [HideInInspector] private float fixedTime = 1;
+
         #endregion
 
         #region Private Fields
-
-        private float currentTime = 0;
-
-        private float minRandomSpawnTime = 1;
-
-        private float maxRandomSpawnTime = 2;
 
         private TimerType currentTimerType = TimerType.Fixed;
 
@@ -136,8 +148,8 @@ namespace SimpleSpawnSystem.Utility
 
         public void SetRandomTimeUnsafe(float min, float max) 
         {
-            minRandomSpawnTime = min;
-            maxRandomSpawnTime = max;
+            minRandomTime = min;
+            maxRandomTime = max;
         }
 
         #endregion
