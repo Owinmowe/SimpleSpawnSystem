@@ -38,10 +38,16 @@ namespace SimpleSpawnSystem.Data
 
             EditorGUI.BeginProperty(position, label, property);
 
+            Color bgColor = property.FindPropertyRelative("SpawnColor").colorValue;
+            bgColor.a = .5f;
+            GUI.backgroundColor = bgColor;
+            GUI.contentColor = Color.white;
+
             property.isExpanded = EditorGUI.Foldout(new Rect(position.x, position.y, position.width, 18.5f), property.isExpanded, label);
 
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
+
 
             currentYPosition = startingYPosition;
 
@@ -50,6 +56,9 @@ namespace SimpleSpawnSystem.Data
 
                 var spawnNameRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(spawnNameRect, property.FindPropertyRelative("SpawnName"));
+
+                var spawnColorRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                EditorGUI.PropertyField(spawnColorRect, property.FindPropertyRelative("SpawnColor"));
 
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));

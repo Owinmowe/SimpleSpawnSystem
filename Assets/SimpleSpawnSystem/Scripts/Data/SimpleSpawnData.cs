@@ -11,6 +11,8 @@ namespace SimpleSpawnSystem.Data
 
         #region Public Fields
 
+        public Color SpawnColor = Color.white;
+
         public string SpawnName = "Spawn Name";
 
         public bool AutoStartSpawning = false;

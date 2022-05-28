@@ -356,9 +356,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Simple Spawn Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 8450034797755477211, guid: 5bdc0bf0fb4b20c4a9440e9b407ee1ff, type: 3}
-      propertyPath: configuration
-      value: 
-      objectReference: {fileID: 11400000, guid: da6ce67548994a14e8435a97233d2206, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5bdc0bf0fb4b20c4a9440e9b407ee1ff, type: 3}

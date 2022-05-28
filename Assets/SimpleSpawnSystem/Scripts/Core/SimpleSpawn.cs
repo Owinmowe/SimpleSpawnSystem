@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleSpawnSystem.Utility;
 using SimpleSpawnSystem.Data;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace SimpleSpawnSystem.Core
 {
@@ -123,6 +126,8 @@ namespace SimpleSpawnSystem.Core
 
         public Spawnable[] PossibleSpawns { set; get; }
 
+        public bool ShowSpawnsLines { set; get; } = true;
+
         #endregion
 
         #region Serializable Fields
@@ -139,6 +144,8 @@ namespace SimpleSpawnSystem.Core
 
         private GetSpawnLocation currentSpawnLocation;
 
+        private Color spawnColor = Color.white;
+
         private bool spawning = false;
 
         private SpawnOrderType currentSpawnOrderType = SpawnOrderType.Randomized;
@@ -148,6 +155,8 @@ namespace SimpleSpawnSystem.Core
         private int currentSequentialSpawn = 0;
 
         private List<int> currentRandomNotRepeatedList = new List<int>();
+
+        private List<Spawnable> spawnedUnits = new List<Spawnable>();
 
         private float currentRandomCircleSpawnLocation = 1.0f;
 
@@ -171,6 +180,37 @@ namespace SimpleSpawnSystem.Core
 
         }
 
+#if UNITY_EDITOR
+
+        private void OnDrawGizmos()
+        {
+            
+
+
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+
+            if (!ShowSpawnsLines) return;
+
+            for (int i = 0; i < spawnedUnits.Count; i++)
+            {
+
+                if (spawnedUnits[i] != null)
+                {
+                    Handles.color = spawnColor;
+                    Handles.DrawLine(transform.position, spawnedUnits[i].transform.position);
+                }
+                else spawnedUnits.RemoveAt(i);
+
+            }
+
+
+        }
+
+#endif
+
         #endregion
 
         #region Public Methods
@@ -179,6 +219,7 @@ namespace SimpleSpawnSystem.Core
         {
 
             gameObject.name = data.SpawnName;
+            spawnColor = data.SpawnColor;
             Spawning = data.AutoStartSpawning;
             PossibleSpawns = data.PossibleSpawnPrefabs;
             OrderType = data.OrderType;
@@ -193,11 +234,11 @@ namespace SimpleSpawnSystem.Core
 
         }
 
+        public void SpawnUnit() => currentSpawnAction();
+
         #endregion
 
         #region Private Methods
-
-        private void SpawnUnit() => currentSpawnAction();
 
         #region Spawn Methods
 
@@ -206,7 +247,9 @@ namespace SimpleSpawnSystem.Core
 
             int unitIndex = Random.Range(0, PossibleSpawns.Length);
 
-            Instantiate(PossibleSpawns[unitIndex], currentSpawnLocation(), Quaternion.identity, transform);
+            var go = Instantiate(PossibleSpawns[unitIndex], currentSpawnLocation(), Quaternion.identity, transform);
+
+            spawnedUnits.Add(go);
 
         }
 
@@ -215,7 +258,9 @@ namespace SimpleSpawnSystem.Core
 
             if(currentSequentialSpawn >= PossibleSpawns.Length) currentSequentialSpawn = 0;
 
-            Instantiate(PossibleSpawns[currentSequentialSpawn], currentSpawnLocation(), Quaternion.identity, transform);
+            var go = Instantiate(PossibleSpawns[currentSequentialSpawn], currentSpawnLocation(), Quaternion.identity, transform);
+
+            spawnedUnits.Add(go);
 
             currentSequentialSpawn++;
 
@@ -224,7 +269,9 @@ namespace SimpleSpawnSystem.Core
         private void SpawnRandomNotRepeatedUnit() 
         {
 
-            Instantiate(PossibleSpawns[currentRandomNotRepeatedList[0]], currentSpawnLocation(), Quaternion.identity, transform);
+            var go = Instantiate(PossibleSpawns[currentRandomNotRepeatedList[0]], currentSpawnLocation(), Quaternion.identity, transform);
+
+            spawnedUnits.Add(go);
 
             currentRandomNotRepeatedList.RemoveAt(0);
 
