@@ -47,8 +47,6 @@ namespace SimpleSpawnSystem.Core
 
                 GUILayout.Label("Spawn Runtime Configuration", labelStyle);
 
-                
-
                 EditorGUILayout.PropertyField(dataProperty);
 
                 if (GUILayout.Button("Spawn Unit"))

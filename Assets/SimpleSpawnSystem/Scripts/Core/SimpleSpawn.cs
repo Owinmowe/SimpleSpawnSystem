@@ -24,7 +24,6 @@ namespace SimpleSpawnSystem.Core
 
                 gameObject.name = data.SpawnName;
 
-                transform.position = data.Position;
 
                 //Calls custom setter/getters
 
@@ -36,6 +35,21 @@ namespace SimpleSpawnSystem.Core
                 AreaType = data.AreaType;
 
                 Spawning = data.AutoStartSpawning;
+
+                if (data.UseRuntimeTransformAsPosition) 
+                {
+
+                    transform.parent = data.SpawnCenterTransform;
+                    transform.localPosition = Vector3.zero;
+
+                }
+                else 
+                {
+
+                    transform.parent = creatorManager.transform;
+                    transform.localPosition = data.PositionOffsetFromManager;
+
+                }
 
             }
             get 
@@ -241,6 +255,7 @@ namespace SimpleSpawnSystem.Core
 
         private SimpleSpawnManager creatorManager = default;
 
+        private bool dataChanged = false;
 
         #endregion
 
@@ -258,15 +273,18 @@ namespace SimpleSpawnSystem.Core
 
             Timer.UpdateTime();
 
+            if (dataChanged)
+            {
+                dataChanged = false;
+                SetSpawnData(data);
+            }
+
         }
 
         private void OnValidate()
         {
 
-            if (data != previousData)
-            {
-                SetSpawnData(data);
-            }
+            dataChanged = data != previousData;
 
         }
 

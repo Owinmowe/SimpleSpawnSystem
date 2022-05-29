@@ -16,7 +16,9 @@ MonoBehaviour:
   - SpawnColor: {r: 0.031372547, g: 1, b: 0, a: 1}
     SpawnName: Spawn 1
     AutoStartSpawning: 1
-    Position: {x: -10, y: 0, z: 0}
+    UseRuntimeTransformAsPosition: 1
+    SpawnCenterTransform: {fileID: 0}
+    PositionOffsetFromManager: {x: 0, y: 0, z: 0}
     PossibleSpawnPrefabs:
     - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}
     - {fileID: 4130237939956609329, guid: c7101c1654f327d418973b56f5288629, type: 3}
@@ -37,7 +39,9 @@ MonoBehaviour:
   - SpawnColor: {r: 0.08141899, g: 0, b: 1, a: 1}
     SpawnName: Spawn 2
     AutoStartSpawning: 1
-    Position: {x: 10, y: 0, z: 0}
+    UseRuntimeTransformAsPosition: 0
+    SpawnCenterTransform: {fileID: 0}
+    PositionOffsetFromManager: {x: 15, y: 0, z: 0}
     PossibleSpawnPrefabs:
     - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}
     - {fileID: 4130237939956609329, guid: c7101c1654f327d418973b56f5288629, type: 3}

@@ -36,6 +36,10 @@ namespace SimpleSpawnSystem.Data
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
 
+            var spawnNameProperty = property.FindPropertyRelative("SpawnName");
+
+            label.text = spawnNameProperty.stringValue;
+
             EditorGUI.BeginProperty(position, label, property);
 
             Color bgColor = property.FindPropertyRelative("SpawnColor").colorValue;
@@ -48,14 +52,13 @@ namespace SimpleSpawnSystem.Data
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
-
             currentYPosition = startingYPosition;
 
             if (property.isExpanded) 
             {
 
                 var spawnNameRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                EditorGUI.PropertyField(spawnNameRect, property.FindPropertyRelative("SpawnName"));
+                EditorGUI.PropertyField(spawnNameRect, spawnNameProperty);
 
                 var spawnColorRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(spawnColorRect, property.FindPropertyRelative("SpawnColor"));
@@ -63,8 +66,23 @@ namespace SimpleSpawnSystem.Data
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
 
-                var positionRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                EditorGUI.PropertyField(positionRect, property.FindPropertyRelative("Position"));
+                var transformBoolProperty = property.FindPropertyRelative("UseRuntimeTransformAsPosition");
+                var transformRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                EditorGUI.PropertyField(transformRect, transformBoolProperty);
+
+                if (transformBoolProperty.boolValue) 
+                {
+                    if (Application.isPlaying) 
+                    {
+                        var spawnCenterRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                        EditorGUI.PropertyField(spawnCenterRect, property.FindPropertyRelative("SpawnCenterTransform"));
+                    }
+                }
+                else 
+                {
+                    var positionRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(positionRect, property.FindPropertyRelative("PositionOffsetFromManager"));
+                }
 
                 var possibleSpawnsProperty = property.FindPropertyRelative("PossibleSpawnPrefabs");
                 if (possibleSpawnsProperty.isExpanded) 
