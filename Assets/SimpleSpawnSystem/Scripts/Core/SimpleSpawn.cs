@@ -134,9 +134,12 @@ namespace SimpleSpawnSystem.Core
             set 
             {
 
+                if (value == subscribedToSpawnEvent) return;
+
                 if(value) Timer.OnTimerReached += SpawnUnit;
                 else Timer.OnTimerReached -= SpawnUnit;
 
+                subscribedToSpawnEvent = value;
                 data.AutoStartSpawning = value;
 
             }
@@ -230,11 +233,14 @@ namespace SimpleSpawnSystem.Core
 
         private GetSpawnLocation currentSpawnLocation;
 
+        private bool subscribedToSpawnEvent = false;
+
         private List<Spawnable> spawnedUnits = new List<Spawnable>();
 
         private SimpleSpawnData previousData = default;
 
         private SimpleSpawnManager creatorManager = default;
+
 
         #endregion
 
@@ -268,8 +274,9 @@ namespace SimpleSpawnSystem.Core
 
         private void OnDrawGizmos()
         {
-            
 
+            Gizmos.color = data.SpawnColor;
+            Gizmos.DrawSphere(transform.position, 1.0f);
 
         }
 
