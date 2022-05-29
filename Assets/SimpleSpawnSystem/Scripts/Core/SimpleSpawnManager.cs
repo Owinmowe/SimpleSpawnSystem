@@ -38,7 +38,7 @@ namespace SimpleSpawnSystem.Core
                 
                 var spawn = spawnGO.AddComponent<SimpleSpawn>();
                 spawn.SetManager(this);
-                spawn.SetSpawnDataFirstTime(spawnData);
+                spawn.SetSpawnData(spawnData);
 
             }
         }

@@ -47,7 +47,7 @@ MonoBehaviour:
     - {fileID: 8354538149396665425, guid: d24ee9344512eb84587e53d3cfba1e59, type: 3}
     - {fileID: 6638603833197987566, guid: 2d48bfc60647eef4886772374606c13b, type: 3}
     - {fileID: 6135170421548348407, guid: 9b11b415ae3e75f47b37d507d8296932, type: 3}
-    OrderType: 0
+    OrderType: 2
     AreaType: 2
     TimerType: 0
     MinRandomTime: 0

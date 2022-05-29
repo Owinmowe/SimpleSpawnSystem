@@ -15,6 +15,35 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Fields
 
+        public SimpleSpawnData Data 
+        {
+            private set 
+            {
+
+                data = value;
+
+                gameObject.name = data.SpawnName;
+
+                transform.position = data.Position;
+
+                //Calls custom setter/getters
+
+                Timer.CurrentTimerType = data.TimerType;
+                Timer.FixedTime = data.FixedTime;
+                Timer.SetRandomTimeUnsafe(data.MinRandomTime, data.MaxRandomTime);
+
+                OrderType = data.OrderType;
+                AreaType = data.AreaType;
+
+                Spawning = data.AutoStartSpawning;
+
+            }
+            get 
+            {
+                return data;
+            }
+        }
+
         public SimpleSpawnTimer Timer { private set; get; }
 
         public SpawnOrderType OrderType 
@@ -104,8 +133,6 @@ namespace SimpleSpawnSystem.Core
         {
             set 
             {
-
-                if (data.AutoStartSpawning == value) return;
 
                 if(value) Timer.OnTimerReached += SpawnUnit;
                 else Timer.OnTimerReached -= SpawnUnit;
@@ -230,11 +257,9 @@ namespace SimpleSpawnSystem.Core
         private void OnValidate()
         {
 
-            if(data != previousData) 
+            if (data != previousData)
             {
-
-                ResetSpawnData(data);
-
+                SetSpawnData(data);
             }
 
         }
@@ -251,17 +276,36 @@ namespace SimpleSpawnSystem.Core
         private void OnDrawGizmosSelected()
         {
 
+            Handles.color = data.SpawnColor;
+            Gizmos.color = data.SpawnColor;
+
             for (int i = 0; i < spawnedUnits.Count; i++)
             {
 
                 if (spawnedUnits != null)
                 {
-                    Handles.color = data.SpawnColor;
                     Handles.DrawLine(transform.position, spawnedUnits[i].transform.position);
                 }
 
             }
 
+            switch (Data.AreaType)
+            {
+
+                case SpawnAreaType.OnCenterPoint:
+                    break;
+
+                case SpawnAreaType.OnRandomAreaCircle:
+                    Handles.DrawWireDisc(transform.position, Vector3.up, Data.CircleRadius);
+                    break;
+
+                case SpawnAreaType.OnRandomAreaSphere:
+                    Gizmos.DrawWireSphere(transform.position, Data.SphereRadius);
+                    break;
+
+                default:
+                    break;
+            }
 
         }
 
@@ -273,34 +317,12 @@ namespace SimpleSpawnSystem.Core
 
         public void SetManager(SimpleSpawnManager manager) => creatorManager = manager;
 
-        public void SetSpawnDataFirstTime(SimpleSpawnData data) 
+        public void SetSpawnData(SimpleSpawnData data)
         {
 
-            ResetSpawnData(data);
-            if (Spawning) Timer.OnTimerReached += SpawnUnit;
-            else Timer.OnTimerReached -= SpawnUnit;
-        }
-
-        public void ResetSpawnData(SimpleSpawnData data) 
-        {
-            this.data = new SimpleSpawnData(data);
-
+            Data = new SimpleSpawnData(data);
             previousData = new SimpleSpawnData(data);
 
-            gameObject.name = data.SpawnName;
-
-            transform.position = data.Position;
-
-            //Calls custom setter/getters
-
-            Timer.CurrentTimerType = this.data.TimerType;
-            Timer.FixedTime = this.data.FixedTime;
-            Timer.SetRandomTimeUnsafe(this.data.MinRandomTime, this.data.MaxRandomTime);
-
-            OrderType = this.data.OrderType;
-            AreaType = this.data.AreaType;
-
-            Spawning = this.data.AutoStartSpawning;
         }
 
         public void SpawnUnit() => currentSpawnAction();
