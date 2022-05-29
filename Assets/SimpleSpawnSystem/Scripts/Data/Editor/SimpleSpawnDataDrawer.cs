@@ -63,9 +63,6 @@ namespace SimpleSpawnSystem.Data
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
 
-                var childOfManagerRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                EditorGUI.PropertyField(childOfManagerRect, property.FindPropertyRelative("ChildOfManager"));
-
                 var positionRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(positionRect, property.FindPropertyRelative("Position"));
 

@@ -17,8 +17,6 @@ namespace SimpleSpawnSystem.Data
 
         public bool AutoStartSpawning = false;
 
-        public bool ChildOfManager = false;
-
         public Vector3 Position = Vector3.zero;
 
         public Spawnable[] PossibleSpawnPrefabs = default;
@@ -54,6 +52,37 @@ namespace SimpleSpawnSystem.Data
         #endregion
 
         #region Public Methods
+
+        public SimpleSpawnData(SimpleSpawnData data)
+        {
+
+            SpawnColor = data.SpawnColor;
+
+            SpawnName = data.SpawnName;
+
+            AutoStartSpawning = data.AutoStartSpawning;
+
+            Position = data.Position;
+
+            PossibleSpawnPrefabs = data.PossibleSpawnPrefabs;
+
+            OrderType = data.OrderType;
+
+            AreaType = data.AreaType;
+
+            TimerType = data.TimerType;
+
+            MinRandomTime = data.MinRandomTime;
+
+            MaxRandomTime = data.MaxRandomTime;
+
+            FixedTime = data.FixedTime;
+
+            CircleRadius = data.CircleRadius;
+
+            SphereRadius = data.SphereRadius;
+
+        }
 
         #endregion
 

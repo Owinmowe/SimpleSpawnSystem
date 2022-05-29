@@ -34,13 +34,11 @@ namespace SimpleSpawnSystem.Core
                     continue;
                 }
 
-                GameObject spawnGO = new GameObject();
-
-                if (spawnData.ChildOfManager) spawnGO.transform.parent = transform;
-                spawnGO.transform.position = spawnData.Position;
+                GameObject spawnGO = new GameObject();          
                 
                 var spawn = spawnGO.AddComponent<SimpleSpawn>();
-                spawn.SetSpawn(spawnData);
+                spawn.SetManager(this);
+                spawn.SetSpawnDataFirstTime(spawnData);
 
             }
         }

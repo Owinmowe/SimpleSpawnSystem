@@ -16,7 +16,6 @@ MonoBehaviour:
   - SpawnColor: {r: 0.031372547, g: 1, b: 0, a: 1}
     SpawnName: Spawn 1
     AutoStartSpawning: 1
-    ChildOfManager: 0
     Position: {x: -10, y: 0, z: 0}
     PossibleSpawnPrefabs:
     - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}
@@ -38,7 +37,6 @@ MonoBehaviour:
   - SpawnColor: {r: 0.08141899, g: 0, b: 1, a: 1}
     SpawnName: Spawn 2
     AutoStartSpawning: 1
-    ChildOfManager: 0
     Position: {x: 10, y: 0, z: 0}
     PossibleSpawnPrefabs:
     - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}

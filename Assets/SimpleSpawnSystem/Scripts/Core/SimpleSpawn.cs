@@ -15,26 +15,16 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Fields
 
-        public SimpleSpawnTimer Timer 
-        {
-            private set 
-            {
-                timer = value;
-            } 
-            get 
-            {
-                return timer;
-            }
-        }
+        public SimpleSpawnTimer Timer { private set; get; }
 
         public SpawnOrderType OrderType 
         {
             set 
             {
 
-                currentSpawnOrderType = value;
+                data.OrderType = value;
 
-                switch (currentSpawnOrderType)
+                switch (data.OrderType)
                 {
                     case SpawnOrderType.Sequential:
                         CurrentSequentialSpawn = 0;
@@ -52,7 +42,7 @@ namespace SimpleSpawnSystem.Core
 
                     default:
                         Debug.LogWarning("Spawn order type not implemented. Spawn order set to sequential.");
-                        currentSpawnOrderType = SpawnOrderType.Sequential;
+                        data.OrderType = SpawnOrderType.Sequential;
                         CurrentSequentialSpawn = 0;
                         currentSpawnAction = SpawnSequentialUnit;
                         break;
@@ -62,7 +52,7 @@ namespace SimpleSpawnSystem.Core
             get 
             {
 
-                return currentSpawnOrderType;
+                return data.OrderType;
 
             }
         }
@@ -73,29 +63,26 @@ namespace SimpleSpawnSystem.Core
             set 
             {
 
-                currentSpawnAreaType = value;
+                data.AreaType = value;
 
-                switch (currentSpawnAreaType)
+                switch (data.AreaType)
                 {
                     
                     case SpawnAreaType.OnCenterPoint:
-                        currentSpawnAreaType = SpawnAreaType.OnCenterPoint;
                         currentSpawnLocation = SpawnLocationOnCenter;
                         break;
                     
                     case SpawnAreaType.OnRandomAreaCircle:
-                        currentSpawnAreaType = SpawnAreaType.OnRandomAreaCircle;
                         currentSpawnLocation = SpawnLocationRandomCircle;
                         break;
                     
                     case SpawnAreaType.OnRandomAreaSphere:
-                        currentSpawnAreaType = SpawnAreaType.OnRandomAreaSphere;
                         currentSpawnLocation = SpawnLocationRandomSphere;
                         break;
                 
                     default:
                         Debug.LogWarning("Area Type not implemented. Spawn area set to center point.");
-                        currentSpawnAreaType = SpawnAreaType.OnCenterPoint;
+                        data.AreaType = SpawnAreaType.OnCenterPoint;
                         currentSpawnLocation = SpawnLocationOnCenter;
                         break;
 
@@ -107,7 +94,7 @@ namespace SimpleSpawnSystem.Core
             get 
             {
 
-                return currentSpawnAreaType;
+                return data.AreaType;
 
             }
 
@@ -118,18 +105,18 @@ namespace SimpleSpawnSystem.Core
             set 
             {
 
-                if (spawning == value) return;
+                if (data.AutoStartSpawning == value) return;
 
                 if(value) Timer.OnTimerReached += SpawnUnit;
                 else Timer.OnTimerReached -= SpawnUnit;
 
-                spawning = value;
+                data.AutoStartSpawning = value;
 
             }
             get 
             {
 
-                return spawning;
+                return data.AutoStartSpawning;
 
             }
         }
@@ -138,11 +125,11 @@ namespace SimpleSpawnSystem.Core
         {
             private set 
             {
-                possibleSpawns = value;
+                data.PossibleSpawnPrefabs = value;
             }
             get 
             { 
-                return possibleSpawns; 
+                return data.PossibleSpawnPrefabs; 
             }
         }
 
@@ -162,11 +149,11 @@ namespace SimpleSpawnSystem.Core
         {
             set 
             {
-                currentRandomCircleSpawnSize = value;
+                data.CircleRadius = value;
             }
             get 
             {
-                return currentRandomCircleSpawnSize;
+                return data.CircleRadius;
             }
         }
 
@@ -174,11 +161,11 @@ namespace SimpleSpawnSystem.Core
         {
             set 
             {
-                currentRandomSphereSpawnSize = value;
+                data.SphereRadius = value;
             }
             get 
             {
-                return currentRandomSphereSpawnSize;
+                return data.SphereRadius;
             }
         }
 
@@ -194,35 +181,15 @@ namespace SimpleSpawnSystem.Core
             }
         }
 
-        public bool ShowSpawnsLines 
-        {
-            set 
-            {
-                showSpawnsLines = value;
-            }
-            get 
-            {
-                return showSpawnsLines;
-            } 
-        }
-
         #endregion
 
         #region Serializable Fields
 
-        [SerializeField] [HideInInspector] private SimpleSpawnTimer timer = default;
+        [SerializeField] [HideInInspector] private SimpleSpawnData data = default;
 
-        [SerializeField] [HideInInspector] private Spawnable[] possibleSpawns = default;
-                       
         [SerializeField] [HideInInspector] private int currentSequentialSpawn = 0;
-                       
-        [SerializeField] [HideInInspector] private float currentRandomCircleSpawnSize = 1.0f;
-                        
-        [SerializeField] [HideInInspector] private float currentRandomSphereSpawnSize = 1.0f;
-                       
+
         [SerializeField] [HideInInspector] private List<int> currentRandomNotRepeatedList = new List<int>();
-                        
-        [SerializeField] [HideInInspector] private bool showSpawnsLines = true;
 
         #endregion
 
@@ -236,16 +203,11 @@ namespace SimpleSpawnSystem.Core
 
         private GetSpawnLocation currentSpawnLocation;
 
-        private Color spawnColor = Color.white;
-
-        private bool spawning = false;
-
-        private SpawnOrderType currentSpawnOrderType = SpawnOrderType.Randomized;
-
-        private SpawnAreaType currentSpawnAreaType = SpawnAreaType.OnCenterPoint;
-
         private List<Spawnable> spawnedUnits = new List<Spawnable>();
 
+        private SimpleSpawnData previousData = default;
+
+        private SimpleSpawnManager creatorManager = default;
 
         #endregion
 
@@ -265,6 +227,18 @@ namespace SimpleSpawnSystem.Core
 
         }
 
+        private void OnValidate()
+        {
+
+            if(data != previousData) 
+            {
+
+                ResetSpawnData(data);
+
+            }
+
+        }
+
 #if UNITY_EDITOR
 
         private void OnDrawGizmos()
@@ -277,17 +251,14 @@ namespace SimpleSpawnSystem.Core
         private void OnDrawGizmosSelected()
         {
 
-            if (!ShowSpawnsLines) return;
-
             for (int i = 0; i < spawnedUnits.Count; i++)
             {
 
-                if (spawnedUnits[i] != null)
+                if (spawnedUnits != null)
                 {
-                    Handles.color = spawnColor;
+                    Handles.color = data.SpawnColor;
                     Handles.DrawLine(transform.position, spawnedUnits[i].transform.position);
                 }
-                else spawnedUnits.RemoveAt(i);
 
             }
 
@@ -300,23 +271,36 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Methods
 
-        public void SetSpawn(SimpleSpawnData data) 
+        public void SetManager(SimpleSpawnManager manager) => creatorManager = manager;
+
+        public void SetSpawnDataFirstTime(SimpleSpawnData data) 
         {
 
+            ResetSpawnData(data);
+            if (Spawning) Timer.OnTimerReached += SpawnUnit;
+            else Timer.OnTimerReached -= SpawnUnit;
+        }
+
+        public void ResetSpawnData(SimpleSpawnData data) 
+        {
+            this.data = new SimpleSpawnData(data);
+
+            previousData = new SimpleSpawnData(data);
+
             gameObject.name = data.SpawnName;
-            spawnColor = data.SpawnColor;
-            Spawning = data.AutoStartSpawning;
-            PossibleSpawns = data.PossibleSpawnPrefabs;
-            OrderType = data.OrderType;
 
-            AreaType = data.AreaType;
-            CurrentRandomCircleSpawnSize = data.CircleRadius;
-            CurrentRandomSphereSpawnSize = data.SphereRadius;
+            transform.position = data.Position;
 
-            Timer.CurrentTimerType = data.TimerType;
-            Timer.FixedTime = data.FixedTime;
-            Timer.SetRandomTimeUnsafe(data.MinRandomTime, data.MaxRandomTime);
+            //Calls custom setter/getters
 
+            Timer.CurrentTimerType = this.data.TimerType;
+            Timer.FixedTime = this.data.FixedTime;
+            Timer.SetRandomTimeUnsafe(this.data.MinRandomTime, this.data.MaxRandomTime);
+
+            OrderType = this.data.OrderType;
+            AreaType = this.data.AreaType;
+
+            Spawning = this.data.AutoStartSpawning;
         }
 
         public void SpawnUnit() => currentSpawnAction();
