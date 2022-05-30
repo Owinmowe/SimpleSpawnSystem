@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 031d25e69b418ec4482d89db492a07f7, type: 3}
-  m_Name: Configuration
+  m_Name: Configuration File
   m_EditorClassIdentifier: 
   SpawnsData:
   - SpawnColor: {r: 0.28746438, g: 1, b: 0, a: 1}
     SpawnName: Spawn 1
     AutoStartSpawning: 1
-    UseRuntimeTransformAsPosition: 0
+    UseRuntimeTransformAsPosition: 1
     SpawnCenterTransform: {fileID: 0}
     PositionOffsetFromManager: {x: 20, y: 0, z: 0}
     PossibleSpawnPrefabs:

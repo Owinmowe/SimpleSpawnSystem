@@ -4,7 +4,6 @@ using UnityEngine;
 namespace SimpleSpawnSystem.Data
 {
 
-    [CreateAssetMenu(fileName = "Configuration", menuName = "Simple Spawn System/Configuration", order = 1)]
     public class SimpleSpawnConfiguration : ScriptableObject
     {
 
