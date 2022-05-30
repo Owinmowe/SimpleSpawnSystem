@@ -352,6 +352,20 @@ namespace SimpleSpawnSystem.Core
 
         public void SpawnUnit() => currentSpawnAction();
 
+        public void DestroyAllUnits() 
+        {
+            for (int i = 0; i < spawnedUnits.Count; i++)
+            {
+
+                if (spawnedUnits != null)
+                {
+                    Destroy(spawnedUnits[i].gameObject);
+                }
+
+            }
+            spawnedUnits.Clear();
+        }
+
         #endregion
 
         #region Private Methods

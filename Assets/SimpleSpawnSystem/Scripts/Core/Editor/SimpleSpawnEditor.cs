@@ -54,6 +54,11 @@ namespace SimpleSpawnSystem.Core
                     script.SpawnUnit();
                 }
 
+                if (GUILayout.Button("Destroy All Units"))
+                {
+                    script.DestroyAllUnits();
+                }
+
                 serializedObject.ApplyModifiedProperties();
 
             }
