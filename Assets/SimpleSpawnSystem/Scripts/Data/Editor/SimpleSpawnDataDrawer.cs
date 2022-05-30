@@ -36,21 +36,22 @@ namespace SimpleSpawnSystem.Data
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
 
-            var spawnNameProperty = property.FindPropertyRelative("SpawnName");
 
+            var spawnNameProperty = property.FindPropertyRelative("SpawnName");
             label.text = spawnNameProperty.stringValue;
+
+            var normalColor = GUI.color;
+            Color labelColor = property.FindPropertyRelative("SpawnColor").colorValue;
+            GUI.color = labelColor;
 
             EditorGUI.BeginProperty(position, label, property);
 
-            Color bgColor = property.FindPropertyRelative("SpawnColor").colorValue;
-            bgColor.a = .5f;
-            GUI.backgroundColor = bgColor;
-            GUI.contentColor = Color.white;
 
             property.isExpanded = EditorGUI.Foldout(new Rect(position.x, position.y, position.width, 18.5f), property.isExpanded, label);
 
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
+            GUI.color = normalColor;
 
             currentYPosition = startingYPosition;
 
