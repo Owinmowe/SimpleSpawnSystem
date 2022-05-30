@@ -11,35 +11,35 @@ namespace SimpleSpawnSystem.Data
 
         #region Public Fields
 
-        public Color SpawnColor = Color.white;
+        public Color SpawnColor;
 
-        public string SpawnName = "Spawn Name";
+        public string SpawnName;
 
-        public bool AutoStartSpawning = false;
+        public bool AutoStartSpawning;
 
-        public bool UseRuntimeTransformAsPosition = false;
+        public bool UseRuntimeTransformAsPosition;
 
-        public Transform SpawnCenterTransform = default;
+        public Transform SpawnCenterTransform;
 
-        public Vector3 PositionOffsetFromManager = Vector3.zero;
+        public Vector3 PositionOffsetFromManager;
 
-        public Spawnable[] PossibleSpawnPrefabs = default;
+        public Spawnable[] PossibleSpawnPrefabs;
 
-        public SpawnOrderType OrderType = SpawnOrderType.Sequential;
+        public SpawnOrderType OrderType;
 
-        public SpawnAreaType AreaType = SpawnAreaType.OnCenterPoint;
+        public SpawnAreaType AreaType;
 
-        public TimerType TimerType = TimerType.Fixed;
+        public TimerType TimerType;
 
-        public float MinRandomTime = 1;
+        public float MinRandomTime;
 
-        public float MaxRandomTime = 2;
+        public float MaxRandomTime;
 
-        public float FixedTime = 1;
+        public float FixedTime;
 
-        public float CircleRadius = 1.0f;
+        public float CircleRadius;
 
-        public float SphereRadius = 1.0f;
+        public float SphereRadius;
 
         #endregion
 
@@ -51,11 +51,42 @@ namespace SimpleSpawnSystem.Data
 
         #endregion
 
-        #region Unity Methods
-
-        #endregion
-
         #region Public Methods
+
+        public SimpleSpawnData()
+        {
+
+            SpawnColor = Color.white;
+
+            SpawnName = "Spawn Name";
+
+            AutoStartSpawning = false;
+
+            UseRuntimeTransformAsPosition = false;
+
+            SpawnCenterTransform = default;
+
+            PositionOffsetFromManager = Vector3.zero;
+
+            PossibleSpawnPrefabs = default;
+
+            OrderType = SpawnOrderType.Sequential;
+
+            AreaType = SpawnAreaType.OnCenterPoint;
+
+            TimerType = TimerType.Fixed;
+
+            MinRandomTime = 1;
+
+            MaxRandomTime = 2;
+
+            FixedTime = 1;
+
+            CircleRadius = 1.0f;
+
+            SphereRadius = 1.0f;
+
+        }
 
         public SimpleSpawnData(SimpleSpawnData data)
         {

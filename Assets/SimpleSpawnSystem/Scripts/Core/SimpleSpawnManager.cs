@@ -25,6 +25,13 @@ namespace SimpleSpawnSystem.Core
 
         private void Start()
         {
+
+            if(configuration == null) 
+            {
+                Debug.LogWarning("Spawn configuration scriptable object not set in Simple Spawn Manager.");
+                return;
+            }
+
             foreach (var spawnData in configuration.SpawnsData)
             {
 

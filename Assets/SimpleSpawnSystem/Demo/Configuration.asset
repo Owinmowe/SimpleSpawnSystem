@@ -10,11 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 031d25e69b418ec4482d89db492a07f7, type: 3}
-  m_Name: Spawn Configuration
+  m_Name: Configuration
   m_EditorClassIdentifier: 
   SpawnsData:
-  - SpawnColor: {r: 0.031372547, g: 1, b: 0, a: 1}
+  - SpawnColor: {r: 0.28746438, g: 1, b: 0, a: 1}
     SpawnName: Spawn 1
+    AutoStartSpawning: 1
+    UseRuntimeTransformAsPosition: 0
+    SpawnCenterTransform: {fileID: 0}
+    PositionOffsetFromManager: {x: 20, y: 0, z: 0}
+    PossibleSpawnPrefabs:
+    - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}
+    - {fileID: 4130237939956609329, guid: c7101c1654f327d418973b56f5288629, type: 3}
+    - {fileID: 4288659375084690941, guid: 00debf919ef5e6f4fbe2537b96c902e3, type: 3}
+    - {fileID: 3070491234366511780, guid: ebc21ee0a78338f448b5dc54b18b20d2, type: 3}
+    - {fileID: 2963510116166506730, guid: d0acad90ddfb92d44a2184d5f730be65, type: 3}
+    - {fileID: 8354538149396665425, guid: d24ee9344512eb84587e53d3cfba1e59, type: 3}
+    - {fileID: 6638603833197987566, guid: 2d48bfc60647eef4886772374606c13b, type: 3}
+    - {fileID: 6135170421548348407, guid: 9b11b415ae3e75f47b37d507d8296932, type: 3}
+    OrderType: 0
+    AreaType: 2
+    TimerType: 0
+    MinRandomTime: 1
+    MaxRandomTime: 2
+    FixedTime: 1
+    CircleRadius: 1
+    SphereRadius: 20
+  - SpawnColor: {r: 1, g: 0.06119465, b: 0, a: 1}
+    SpawnName: Spawn 2
     AutoStartSpawning: 1
     UseRuntimeTransformAsPosition: 1
     SpawnCenterTransform: {fileID: 0}
@@ -28,34 +51,11 @@ MonoBehaviour:
     - {fileID: 8354538149396665425, guid: d24ee9344512eb84587e53d3cfba1e59, type: 3}
     - {fileID: 6638603833197987566, guid: 2d48bfc60647eef4886772374606c13b, type: 3}
     - {fileID: 6135170421548348407, guid: 9b11b415ae3e75f47b37d507d8296932, type: 3}
-    OrderType: 0
-    AreaType: 1
-    TimerType: 0
-    MinRandomTime: 0
-    MaxRandomTime: 0
-    FixedTime: 1
-    CircleRadius: 10
-    SphereRadius: 0
-  - SpawnColor: {r: 0.08141899, g: 0, b: 1, a: 1}
-    SpawnName: Spawn 2
-    AutoStartSpawning: 1
-    UseRuntimeTransformAsPosition: 0
-    SpawnCenterTransform: {fileID: 0}
-    PositionOffsetFromManager: {x: 15, y: 0, z: 0}
-    PossibleSpawnPrefabs:
-    - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}
-    - {fileID: 4130237939956609329, guid: c7101c1654f327d418973b56f5288629, type: 3}
-    - {fileID: 4288659375084690941, guid: 00debf919ef5e6f4fbe2537b96c902e3, type: 3}
-    - {fileID: 3070491234366511780, guid: ebc21ee0a78338f448b5dc54b18b20d2, type: 3}
-    - {fileID: 2963510116166506730, guid: d0acad90ddfb92d44a2184d5f730be65, type: 3}
-    - {fileID: 8354538149396665425, guid: d24ee9344512eb84587e53d3cfba1e59, type: 3}
-    - {fileID: 6638603833197987566, guid: 2d48bfc60647eef4886772374606c13b, type: 3}
-    - {fileID: 6135170421548348407, guid: 9b11b415ae3e75f47b37d507d8296932, type: 3}
     OrderType: 2
-    AreaType: 2
-    TimerType: 0
-    MinRandomTime: 0
-    MaxRandomTime: 0
+    AreaType: 1
+    TimerType: 1
+    MinRandomTime: 1
+    MaxRandomTime: 2
     FixedTime: 1
     CircleRadius: 10
-    SphereRadius: 5
+    SphereRadius: 1

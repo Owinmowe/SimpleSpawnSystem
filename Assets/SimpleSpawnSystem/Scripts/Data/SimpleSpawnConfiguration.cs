@@ -10,7 +10,7 @@ namespace SimpleSpawnSystem.Data
 
         #region Public Fields
 
-        public List<SimpleSpawnData> SpawnsData = default; 
+        public List<SimpleSpawnData> SpawnsData = new List<SimpleSpawnData>();
 
         #endregion
 
@@ -19,6 +19,11 @@ namespace SimpleSpawnSystem.Data
         #endregion
 
         #region Private Fields
+
+        private void Awake()
+        {
+            SpawnsData.Add(new SimpleSpawnData());
+        }
 
         #endregion
 

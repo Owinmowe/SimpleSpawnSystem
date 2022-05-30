@@ -36,7 +36,6 @@ namespace SimpleSpawnSystem.Data
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
 
-
             var spawnNameProperty = property.FindPropertyRelative("SpawnName");
             label.text = spawnNameProperty.stringValue;
 
