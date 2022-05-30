@@ -25,9 +25,9 @@ namespace SimpleSpawnSystem.Data
 
         private float startingYPosition = 40;
 
-        private float startingFullPropertyHeight = 375f;
+        private float startingFullPropertyHeight = 350f;
 
-        private float fullPropertyHeight = 375f;
+        private float fullPropertyHeight = 350f;
 
         #endregion
 
