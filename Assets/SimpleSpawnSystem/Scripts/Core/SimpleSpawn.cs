@@ -15,6 +15,8 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Fields
 
+        public System.Action<SimpleSpawn> OnMonoDestroyed;
+
         public SimpleSpawnData Data 
         {
             private set 
@@ -225,6 +227,8 @@ namespace SimpleSpawnSystem.Core
             }
         }
 
+        public List<Spawnable> SpawnedUnits => spawnedUnits;
+
         #endregion
 
         #region Serializable Fields
@@ -335,6 +339,8 @@ namespace SimpleSpawnSystem.Core
         }
 
 #endif
+
+        private void OnDestroy() => OnMonoDestroyed?.Invoke(this);
 
         #endregion
 
