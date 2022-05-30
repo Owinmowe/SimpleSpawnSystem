@@ -49,6 +49,10 @@ namespace SimpleSpawnSystem.Core
 
                 EditorGUILayout.PropertyField(dataProperty);
 
+                GUILayout.Label("Current Spawns Amount: " + script.SpawnedUnits.Count);
+
+                GUILayout.Space(20);
+
                 if (GUILayout.Button("Spawn Unit"))
                 {
                     script.SpawnUnit();
@@ -61,8 +65,8 @@ namespace SimpleSpawnSystem.Core
 
                 serializedObject.ApplyModifiedProperties();
 
-            }
 
+            }
 
         }
 

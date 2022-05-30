@@ -1,8 +1,7 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.UIElements;
 
-#if UNITY_EDITOR
 
 namespace SimpleSpawnSystem.Core
 {
@@ -30,10 +29,11 @@ namespace SimpleSpawnSystem.Core
 
             DrawDefaultInspector();
 
+            var script = (SimpleSpawnManager)target;
+
             if (Application.isPlaying)
             {
 
-                var script = (SimpleSpawnManager)target;
 
                 GUIStyle titleStyle = new GUIStyle();
                 titleStyle.fontSize = 20;
@@ -57,7 +57,24 @@ namespace SimpleSpawnSystem.Core
                     GUILayout.Space(20);
                 }
             }
+            else if (script.SaveFile)
+            {
 
+                GUILayout.Space(20);
+
+                if (GUILayout.Button("Save to file"))
+                {
+                    script.WriteDataToSaveFile();
+                }
+
+                GUILayout.Space(10);
+
+                if (GUILayout.Button("Load from file"))
+                {
+                    script.ReadDataFromSaveFile();
+                }
+
+            }
         }
 
         #endregion

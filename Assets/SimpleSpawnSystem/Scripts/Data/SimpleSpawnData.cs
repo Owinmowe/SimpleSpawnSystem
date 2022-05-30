@@ -17,11 +17,9 @@ namespace SimpleSpawnSystem.Data
 
         public bool AutoStartSpawning;
 
-        public bool UseRuntimeTransformAsPosition;
+        public bool UseCustomParent;
 
-        public Transform SpawnCenterTransform;
-
-        public Vector3 PositionOffsetFromManager;
+        public Transform CustomParentTransform;
 
         public Spawnable[] PossibleSpawnPrefabs;
 
@@ -62,11 +60,9 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = false;
 
-            UseRuntimeTransformAsPosition = false;
+            UseCustomParent = false;
 
-            SpawnCenterTransform = default;
-
-            PositionOffsetFromManager = Vector3.zero;
+            CustomParentTransform = default;
 
             PossibleSpawnPrefabs = default;
 
@@ -97,11 +93,9 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = data.AutoStartSpawning;
 
-            UseRuntimeTransformAsPosition = data.UseRuntimeTransformAsPosition;
+            UseCustomParent = data.UseCustomParent;
 
-            SpawnCenterTransform = data.SpawnCenterTransform;
-
-            PositionOffsetFromManager = data.PositionOffsetFromManager;
+            CustomParentTransform = data.CustomParentTransform;
 
             PossibleSpawnPrefabs = data.PossibleSpawnPrefabs;
 

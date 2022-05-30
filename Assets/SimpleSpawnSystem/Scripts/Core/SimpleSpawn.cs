@@ -38,10 +38,10 @@ namespace SimpleSpawnSystem.Core
 
                 Spawning = data.AutoStartSpawning;
 
-                if (data.UseRuntimeTransformAsPosition) 
+                if (data.UseCustomParent) 
                 {
 
-                    transform.parent = data.SpawnCenterTransform;
+                    transform.parent = data.CustomParentTransform;
                     transform.localPosition = Vector3.zero;
 
                 }
@@ -49,7 +49,6 @@ namespace SimpleSpawnSystem.Core
                 {
 
                     transform.parent = creatorManager.transform;
-                    transform.localPosition = data.PositionOffsetFromManager;
 
                 }
 

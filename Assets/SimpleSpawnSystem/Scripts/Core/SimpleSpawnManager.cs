@@ -14,11 +14,15 @@ namespace SimpleSpawnSystem.Core
 
         public int GetSpawnsCount => currentSpawns.Count;
 
+        public SimpleSpawnSaveFile SaveFile => saveFile;
+
         #endregion
 
         #region Serializable Fields
 
-        [SerializeField] private SimpleSpawnConfiguration configuration = default;
+        [SerializeField] private List<SimpleSpawnData> currentSpawnsData = new List<SimpleSpawnData>();
+
+        [SerializeField] private SimpleSpawnSaveFile saveFile = default;
 
         #endregion
 
@@ -29,6 +33,12 @@ namespace SimpleSpawnSystem.Core
         #endregion
 
         #region Unity Methods
+
+        private void Reset()
+        {
+            currentSpawnsData = new List<SimpleSpawnData>();
+            AddSpawnData(new SimpleSpawnData());
+        }
 
         private void Awake()
         {
@@ -46,16 +56,16 @@ namespace SimpleSpawnSystem.Core
         private void Start()
         {
 
-            if(configuration == null) 
+            if(saveFile == null) 
             {
                 Debug.LogError("Spawn configuration scriptable object not set in Simple Spawn Manager.");
                 return;
             }
 
-            foreach (var spawnData in configuration.SpawnsData)
+            for (int i = 0; i < currentSpawnsData.Count; i++)
             {
-
-                if(spawnData.PossibleSpawnPrefabs.Length < 1) 
+                SimpleSpawnData spawnData = currentSpawnsData[i];
+                if (spawnData.PossibleSpawnPrefabs.Length < 1) 
                 {
                     Debug.LogWarning("Prefab list for spawn named '" + spawnData.SpawnName + "' not found. Spawn will not be made.");
                     continue;
@@ -93,9 +103,32 @@ namespace SimpleSpawnSystem.Core
 
             spawn.OnMonoDestroyed += RemoveSpawnFromList;
 
-            currentSpawns.Add(spawn);
-
             return currentSpawns.Count - 1;
+
+        }
+
+        public void WriteDataToSaveFile() 
+        {
+
+            var dataToSave = new List<SimpleSpawnData>();
+            foreach (var data in currentSpawnsData)
+            {
+                dataToSave.Add(new SimpleSpawnData(data));
+            }
+
+            saveFile.SpawnsData.Clear();
+            saveFile.SpawnsData = dataToSave;
+
+        }
+
+        public void ReadDataFromSaveFile() 
+        {
+
+            currentSpawnsData.Clear();
+            foreach (var data in saveFile.SpawnsData)
+            {
+                currentSpawnsData.Add(new SimpleSpawnData(data));
+            }
 
         }
 
@@ -103,10 +136,9 @@ namespace SimpleSpawnSystem.Core
 
         #region Private Methods
 
-        private void RemoveSpawnFromList(SimpleSpawn simpleSpawn) 
-        {
-            currentSpawns.Remove(simpleSpawn);
-        }
+        private void AddSpawnData(SimpleSpawnData data) => currentSpawnsData.Add(data);
+
+        private void RemoveSpawnFromList(SimpleSpawn simpleSpawn) => currentSpawns.Remove(simpleSpawn);
 
         #endregion
 

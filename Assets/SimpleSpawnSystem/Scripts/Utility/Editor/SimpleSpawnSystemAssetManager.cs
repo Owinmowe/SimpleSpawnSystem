@@ -41,12 +41,12 @@ namespace SimpleSpawnSystem.Utility
 
         }
 
-        [MenuItem("Simple Spawn System/Create Configuration File")]
+        [MenuItem("Simple Spawn System/Create Save File")]
         static void CreateConfiguration() 
         {
-            Data.SimpleSpawnConfiguration asset = CreateInstance<Data.SimpleSpawnConfiguration>();
+            Data.SimpleSpawnSaveFile asset = CreateInstance<Data.SimpleSpawnSaveFile>();
 
-            AssetDatabase.CreateAsset(asset, "Assets/Configuration File.asset");
+            AssetDatabase.CreateAsset(asset, "Assets/Save File.asset");
             AssetDatabase.SaveAssets();
 
             EditorUtility.FocusProjectWindow();

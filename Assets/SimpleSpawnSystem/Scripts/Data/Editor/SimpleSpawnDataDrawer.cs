@@ -66,22 +66,14 @@ namespace SimpleSpawnSystem.Data
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
 
-                var transformBoolProperty = property.FindPropertyRelative("UseRuntimeTransformAsPosition");
+                var transformBoolProperty = property.FindPropertyRelative("UseCustomParent");
                 var transformRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(transformRect, transformBoolProperty);
 
                 if (transformBoolProperty.boolValue) 
                 {
-                    if (Application.isPlaying) 
-                    {
-                        var spawnCenterRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                        EditorGUI.PropertyField(spawnCenterRect, property.FindPropertyRelative("SpawnCenterTransform"));
-                    }
-                }
-                else 
-                {
-                    var positionRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                    EditorGUI.PropertyField(positionRect, property.FindPropertyRelative("PositionOffsetFromManager"));
+                    var spawnCenterRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(spawnCenterRect, property.FindPropertyRelative("CustomParentTransform"));
                 }
 
                 var possibleSpawnsProperty = property.FindPropertyRelative("PossibleSpawnPrefabs");
