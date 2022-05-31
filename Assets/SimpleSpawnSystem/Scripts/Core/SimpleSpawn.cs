@@ -38,20 +38,6 @@ namespace SimpleSpawnSystem.Core
 
                 Spawning = data.AutoStartSpawning;
 
-                if (data.UseCustomParent) 
-                {
-
-                    transform.parent = data.CustomParentTransform;
-                    transform.localPosition = Vector3.zero;
-
-                }
-                else 
-                {
-
-                    transform.parent = creatorManager.transform;
-
-                }
-
             }
             get 
             {
@@ -242,7 +228,7 @@ namespace SimpleSpawnSystem.Core
 
         #region Private Fields
 
-        private delegate void SpawnAction();
+        private delegate Spawnable SpawnAction();
 
         private SpawnAction currentSpawnAction;
 
@@ -355,7 +341,13 @@ namespace SimpleSpawnSystem.Core
 
         }
 
-        public void SpawnUnit() => currentSpawnAction();
+        public void SpawnUnit()
+        {
+
+            var spawnable = currentSpawnAction();
+            spawnable.ApplySpawnModifiers(data);
+
+        }
 
         public void DestroyAllUnits() 
         {
@@ -377,7 +369,7 @@ namespace SimpleSpawnSystem.Core
 
         #region Spawn Methods
 
-        private void SpawnRandomUnit() 
+        private Spawnable SpawnRandomUnit() 
         {
 
             int unitIndex = Random.Range(0, PossibleSpawns.Length);
@@ -386,9 +378,11 @@ namespace SimpleSpawnSystem.Core
 
             spawnedUnits.Add(go);
 
+            return go;
+
         }
 
-        private void SpawnSequentialUnit() 
+        private Spawnable SpawnSequentialUnit() 
         {
 
             if(CurrentSequentialSpawn >= PossibleSpawns.Length) CurrentSequentialSpawn = 0;
@@ -399,9 +393,11 @@ namespace SimpleSpawnSystem.Core
 
             CurrentSequentialSpawn++;
 
+            return go;
+
         }
 
-        private void SpawnRandomNotRepeatedUnit() 
+        private Spawnable SpawnRandomNotRepeatedUnit() 
         {
 
             var go = Instantiate(PossibleSpawns[CurrentRandomNotRepeatedList[0]], currentSpawnLocation(), Quaternion.identity, transform);
@@ -411,6 +407,8 @@ namespace SimpleSpawnSystem.Core
             CurrentRandomNotRepeatedList.RemoveAt(0);
 
             if (CurrentRandomNotRepeatedList.Count == 0) RecreateSpawnIndexList();
+
+            return go;
 
         }
 

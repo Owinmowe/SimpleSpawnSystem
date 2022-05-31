@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6438a21defbdbd2498d62a5e1bcc8225, type: 3}
-  m_Name: Save File
+  m_Name: Terrain Save File
   m_EditorClassIdentifier: 
   SpawnsData:
-  - SpawnColor: {r: 1, g: 0, b: 0, a: 1}
-    SpawnName: Spawn
-    AutoStartSpawning: 1
-    UseCustomParent: 1
-    CustomParentTransform: {fileID: 0}
-    PossibleSpawnPrefabs:
-    - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}
-    - {fileID: 4130237939956609329, guid: c7101c1654f327d418973b56f5288629, type: 3}
-    - {fileID: 4288659375084690941, guid: 00debf919ef5e6f4fbe2537b96c902e3, type: 3}
-    - {fileID: 3070491234366511780, guid: ebc21ee0a78338f448b5dc54b18b20d2, type: 3}
+  - SpawnColor: {r: 1, g: 1, b: 1, a: 1}
+    SpawnName: Spawn Name
+    AutoStartSpawning: 0
+    UseUnityTerrain: 0
+    UnityTerrain: {fileID: 0}
+    TerrainLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    TerrainOffset: 0.5
+    AlignWithUnityTerrain: 1
+    PossibleSpawnPrefabs: []
     OrderType: 0
     AreaType: 0
     TimerType: 0

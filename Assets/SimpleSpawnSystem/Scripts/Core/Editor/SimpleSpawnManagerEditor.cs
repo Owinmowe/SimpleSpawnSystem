@@ -40,7 +40,7 @@ namespace SimpleSpawnSystem.Core
                 titleStyle.normal.textColor = Color.white;
 
                 GUIStyle spawnsStyle = new GUIStyle();
-                spawnsStyle.fontSize = 10;
+                spawnsStyle.fontSize = 15;
 
                 GUILayout.Space(20);
                 GUILayout.Label("Current Spawns", titleStyle);

@@ -17,9 +17,15 @@ namespace SimpleSpawnSystem.Data
 
         public bool AutoStartSpawning;
 
-        public bool UseCustomParent;
+        public bool UseUnityTerrain;
 
-        public Transform CustomParentTransform;
+        public Terrain UnityTerrain;
+
+        public LayerMask TerrainLayer;
+
+        public float TerrainOffset;
+
+        public bool AlignWithUnityTerrain;
 
         public Spawnable[] PossibleSpawnPrefabs;
 
@@ -60,9 +66,15 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = false;
 
-            UseCustomParent = false;
+            UseUnityTerrain = false;
 
-            CustomParentTransform = default;
+            UnityTerrain = default;
+
+            TerrainLayer = default;
+
+            TerrainOffset = .5f;
+
+            AlignWithUnityTerrain = true;
 
             PossibleSpawnPrefabs = default;
 
@@ -93,9 +105,15 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = data.AutoStartSpawning;
 
-            UseCustomParent = data.UseCustomParent;
+            UseUnityTerrain = data.UseUnityTerrain;
 
-            CustomParentTransform = data.CustomParentTransform;
+            UnityTerrain = data.UnityTerrain;
+
+            TerrainLayer = data.TerrainLayer;
+
+            TerrainOffset = data.TerrainOffset;
+
+            AlignWithUnityTerrain = data.AlignWithUnityTerrain;
 
             PossibleSpawnPrefabs = data.PossibleSpawnPrefabs;
 

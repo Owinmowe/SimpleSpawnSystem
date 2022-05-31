@@ -20,7 +20,7 @@ namespace SimpleSpawnSystem.Core
 
         #region Serializable Fields
 
-        [SerializeField] private List<SimpleSpawnData> currentSpawnsData = new List<SimpleSpawnData>();
+        [SerializeField] private List<SimpleSpawnData> startingSpawnData = new List<SimpleSpawnData>();
 
         [SerializeField] private SimpleSpawnSaveFile saveFile = default;
 
@@ -36,7 +36,7 @@ namespace SimpleSpawnSystem.Core
 
         private void Reset()
         {
-            currentSpawnsData = new List<SimpleSpawnData>();
+            startingSpawnData = new List<SimpleSpawnData>();
             AddSpawnData(new SimpleSpawnData());
         }
 
@@ -62,9 +62,9 @@ namespace SimpleSpawnSystem.Core
                 return;
             }
 
-            for (int i = 0; i < currentSpawnsData.Count; i++)
+            for (int i = 0; i < startingSpawnData.Count; i++)
             {
-                SimpleSpawnData spawnData = currentSpawnsData[i];
+                SimpleSpawnData spawnData = startingSpawnData[i];
                 if (spawnData.PossibleSpawnPrefabs.Length < 1) 
                 {
                     Debug.LogWarning("Prefab list for spawn named '" + spawnData.SpawnName + "' not found. Spawn will not be made.");
@@ -103,6 +103,8 @@ namespace SimpleSpawnSystem.Core
 
             spawn.OnMonoDestroyed += RemoveSpawnFromList;
 
+            currentSpawns.Add(spawn);
+
             return currentSpawns.Count - 1;
 
         }
@@ -111,7 +113,7 @@ namespace SimpleSpawnSystem.Core
         {
 
             var dataToSave = new List<SimpleSpawnData>();
-            foreach (var data in currentSpawnsData)
+            foreach (var data in startingSpawnData)
             {
                 dataToSave.Add(new SimpleSpawnData(data));
             }
@@ -124,10 +126,10 @@ namespace SimpleSpawnSystem.Core
         public void ReadDataFromSaveFile() 
         {
 
-            currentSpawnsData.Clear();
+            startingSpawnData.Clear();
             foreach (var data in saveFile.SpawnsData)
             {
-                currentSpawnsData.Add(new SimpleSpawnData(data));
+                startingSpawnData.Add(new SimpleSpawnData(data));
             }
 
         }
@@ -136,7 +138,7 @@ namespace SimpleSpawnSystem.Core
 
         #region Private Methods
 
-        private void AddSpawnData(SimpleSpawnData data) => currentSpawnsData.Add(data);
+        private void AddSpawnData(SimpleSpawnData data) => startingSpawnData.Add(data);
 
         private void RemoveSpawnFromList(SimpleSpawn simpleSpawn) => currentSpawns.Remove(simpleSpawn);
 

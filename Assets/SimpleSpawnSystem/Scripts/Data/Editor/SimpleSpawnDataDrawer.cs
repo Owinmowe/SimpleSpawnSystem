@@ -66,14 +66,25 @@ namespace SimpleSpawnSystem.Data
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
 
-                var transformBoolProperty = property.FindPropertyRelative("UseCustomParent");
-                var transformRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                EditorGUI.PropertyField(transformRect, transformBoolProperty);
+                var useTerrainBoolProperty = property.FindPropertyRelative("UseUnityTerrain");
+                var useTerrainRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                EditorGUI.PropertyField(useTerrainRect, useTerrainBoolProperty);
 
-                if (transformBoolProperty.boolValue) 
+                if (useTerrainBoolProperty.boolValue) 
                 {
-                    var spawnCenterRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                    EditorGUI.PropertyField(spawnCenterRect, property.FindPropertyRelative("CustomParentTransform"));
+
+                    var unityTerrain = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(unityTerrain, property.FindPropertyRelative("UnityTerrain"));
+
+                    var terrainLayerRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(terrainLayerRect, property.FindPropertyRelative("TerrainLayer"));
+
+                    var terrainOffsetRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(terrainOffsetRect, property.FindPropertyRelative("TerrainOffset"));
+
+                    var terrainAlignRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(terrainAlignRect, property.FindPropertyRelative("AlignWithUnityTerrain"));
+
                 }
 
                 var possibleSpawnsProperty = property.FindPropertyRelative("PossibleSpawnPrefabs");
@@ -163,6 +174,12 @@ namespace SimpleSpawnSystem.Data
             if (!property.isExpanded) return 17.5f;
 
             fullPropertyHeight = startingFullPropertyHeight;
+
+            var useTerrainBoolProperty = property.FindPropertyRelative("UseUnityTerrain");
+            if (useTerrainBoolProperty.boolValue) 
+            {
+                fullPropertyHeight += 90;
+            }
 
             var possibleSpawnsProperty = property.FindPropertyRelative("PossibleSpawnPrefabs");
             if (possibleSpawnsProperty.isExpanded) 
