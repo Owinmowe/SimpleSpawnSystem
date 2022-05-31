@@ -31,7 +31,7 @@ namespace SimpleSpawnSystem.Demo
             spawnable = GetComponent<Spawnable>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             StartCoroutine(DestroyBallCoroutine());
         }
