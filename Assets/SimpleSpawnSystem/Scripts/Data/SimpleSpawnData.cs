@@ -17,9 +17,13 @@ namespace SimpleSpawnSystem.Data
 
         public bool AutoStartSpawning;
 
-        public bool UseCustomParentTransform;
+        public bool UseUnitParentTransform;
 
-        public Transform CustomParentTransform; 
+        public Transform UnitParentTransform;
+
+        public bool UseSpawnParentTransform;
+
+        public Transform SpawnParentTransform;
 
         public bool UseUnityTerrain;
 
@@ -70,9 +74,13 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = false;
 
-            UseCustomParentTransform = false;
+            UseUnitParentTransform = false;
 
-            CustomParentTransform = default;
+            UnitParentTransform = default;
+
+            UseSpawnParentTransform = false;
+
+            SpawnParentTransform = default;
 
             UseUnityTerrain = false;
 
@@ -113,9 +121,13 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = data.AutoStartSpawning;
 
-            UseCustomParentTransform = data.UseCustomParentTransform;
+            UseUnitParentTransform = data.UseUnitParentTransform;
 
-            CustomParentTransform = data.CustomParentTransform;
+            UnitParentTransform = data.UnitParentTransform;
+
+            UseSpawnParentTransform = data.UseSpawnParentTransform;
+
+            SpawnParentTransform = data.SpawnParentTransform;
 
             UseUnityTerrain = data.UseUnityTerrain;
 

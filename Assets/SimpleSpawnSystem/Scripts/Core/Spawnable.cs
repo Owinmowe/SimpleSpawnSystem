@@ -64,6 +64,11 @@ namespace SimpleSpawnSystem.Core
 
             }
 
+            if(data.UseUnitParentTransform && data.UnitParentTransform != null) 
+            {
+                transform.parent = data.UnitParentTransform;
+            }
+
         }
 
         #endregion

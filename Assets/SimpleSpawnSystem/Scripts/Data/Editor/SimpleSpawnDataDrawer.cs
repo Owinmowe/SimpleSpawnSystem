@@ -25,9 +25,9 @@ namespace SimpleSpawnSystem.Data
 
         private float startingYPosition = 40;
 
-        private float startingFullPropertyHeight = 350f;
+        private float startingFullPropertyHeight = 380f;
 
-        private float fullPropertyHeight = 350f;
+        private float fullPropertyHeight = 380f;
 
         #endregion
 
@@ -66,14 +66,24 @@ namespace SimpleSpawnSystem.Data
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
 
-                var useCustomParentTransformBoolProperty = property.FindPropertyRelative("UseCustomParentTransform");
-                var useParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                EditorGUI.PropertyField(useParentRect, useCustomParentTransformBoolProperty);
+                var useSpawnParentTransformBoolProperty = property.FindPropertyRelative("UseSpawnParentTransform");
+                var useSpawnParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                EditorGUI.PropertyField(useSpawnParentRect, useSpawnParentTransformBoolProperty);
 
-                if (useCustomParentTransformBoolProperty.boolValue) 
+                if (useSpawnParentTransformBoolProperty.boolValue)
                 {
-                    var customParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                    EditorGUI.PropertyField(customParentRect, property.FindPropertyRelative("CustomParentTransform"));
+                    var SpawnParentTransformRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(SpawnParentTransformRect, property.FindPropertyRelative("SpawnParentTransform"));
+                }
+
+                var useUnitParentTransformBoolProperty = property.FindPropertyRelative("UseUnitParentTransform");
+                var useUnitParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                EditorGUI.PropertyField(useUnitParentRect, useUnitParentTransformBoolProperty);
+
+                if (useUnitParentTransformBoolProperty.boolValue)
+                {
+                    var unitParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(unitParentRect, property.FindPropertyRelative("UnitParentTransform"));
                 }
 
                 var useTerrainBoolProperty = property.FindPropertyRelative("UseUnityTerrain");
@@ -185,7 +195,14 @@ namespace SimpleSpawnSystem.Data
 
             fullPropertyHeight = startingFullPropertyHeight;
 
-            var useCustomParentTransformBoolProperty = property.FindPropertyRelative("UseCustomParentTransform");
+            var useUnitParentTransformBoolProperty = property.FindPropertyRelative("UseUnitParentTransform");
+
+            if (useUnitParentTransformBoolProperty.boolValue) 
+            {
+                fullPropertyHeight += 30;
+            }
+
+            var useCustomParentTransformBoolProperty = property.FindPropertyRelative("UseSpawnParentTransform");
 
             if (useCustomParentTransformBoolProperty.boolValue)
             {

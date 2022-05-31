@@ -398,6 +398,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 45, y: 90, z: 0}
+--- !u!1 &755482286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 755482287}
+  m_Layer: 0
+  m_Name: Unit Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &755482287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755482286}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1504673749
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,8 +462,41 @@ MonoBehaviour:
   - SpawnColor: {r: 1, g: 0, b: 0.782176, a: 1}
     SpawnName: Pool Spawn
     AutoStartSpawning: 1
-    UseCustomParentTransform: 1
-    CustomParentTransform: {fileID: 1802184996}
+    UseUnitParentTransform: 1
+    UnitParentTransform: {fileID: 755482287}
+    UseSpawnParentTransform: 1
+    SpawnParentTransform: {fileID: 1802184996}
+    UseUnityTerrain: 0
+    UnityTerrain: {fileID: 0}
+    TerrainLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    TerrainOffset: 0.5
+    AlignWithUnityTerrain: 1
+    PossibleSpawnPrefabs:
+    - {fileID: 3871186214251071865, guid: 232e19fb93954884c9ce232b0446f8ee, type: 3}
+    - {fileID: 3417143896741892092, guid: b6631a8cfed09064698b1325520b5cc1, type: 3}
+    - {fileID: 7394770897921521227, guid: 4e815d7ef34b1134197f50367698aef6, type: 3}
+    - {fileID: -756249808877558639, guid: 0bbc9fa306d444b499607629c6947d25, type: 3}
+    - {fileID: 7081053249595010028, guid: 0cd95b162b3172247b4fe06bf8c204c7, type: 3}
+    - {fileID: -8061230900682264480, guid: 0d5519f1642985c4487a9ad00a670a60, type: 3}
+    - {fileID: 5632884254734082381, guid: 68af0bee3d4c1e64d9d9b007e35a0728, type: 3}
+    - {fileID: -7918982855333773851, guid: d2c289cf7f97edd4786e6211a02824a8, type: 3}
+    OrderType: 0
+    AreaType: 1
+    TimerType: 0
+    MinRandomTime: 0.2
+    MaxRandomTime: 0.5
+    FixedTime: 0.005
+    CircleRadius: 10
+    SphereRadius: 10
+  - SpawnColor: {r: 1, g: 0, b: 0.782176, a: 1}
+    SpawnName: Pool Spawn
+    AutoStartSpawning: 1
+    UseUnitParentTransform: 1
+    UnitParentTransform: {fileID: 755482287}
+    UseSpawnParentTransform: 1
+    SpawnParentTransform: {fileID: 1802184996}
     UseUnityTerrain: 0
     UnityTerrain: {fileID: 0}
     TerrainLayer:
@@ -482,6 +546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1802184996}
+  - component: {fileID: 1802184997}
   m_Layer: 0
   m_Name: Spawn Position
   m_TagString: Untagged
@@ -504,3 +569,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1802184997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802184995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4252b0562d6d06f4594527777a75b0d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementRange: 100
+  movementSpeed: 10
+  movementStartingOffset: -50

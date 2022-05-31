@@ -38,11 +38,11 @@ namespace SimpleSpawnSystem.Core
 
                 Spawning = data.AutoStartSpawning;
 
-                if (data.UseCustomParentTransform) 
+                if (data.UseSpawnParentTransform) 
                 {
-                    if (data.CustomParentTransform)
+                    if (data.SpawnParentTransform)
                     {
-                        transform.SetParent(data.CustomParentTransform);
+                        transform.SetParent(data.SpawnParentTransform);
                         transform.localPosition = Vector3.zero;
                     }
                     else Debug.LogWarning("Custom parent set to true but no transform set in configuration. Parent not set.");
