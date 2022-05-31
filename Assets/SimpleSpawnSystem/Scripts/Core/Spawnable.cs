@@ -24,7 +24,7 @@ namespace SimpleSpawnSystem.Core
 
         private RaycastHit[] terrainRaycastHitResults = new RaycastHit[10];
 
-        private const float terrainDistanceCheck = 50f;
+        private const float terrainDistanceCheck = 2f;
 
         #endregion
 
@@ -50,7 +50,7 @@ namespace SimpleSpawnSystem.Core
                 if (data.AlignWithUnityTerrain) 
                 {
 
-                    Physics.RaycastNonAlloc(transform.position, Vector3.down, terrainRaycastHitResults, terrainDistanceCheck, data.TerrainLayer);
+                    Physics.RaycastNonAlloc(transform.position + Vector3.up, Vector3.down, terrainRaycastHitResults, terrainDistanceCheck, data.TerrainLayer);
 
                     if (terrainRaycastHitResults != null)
                     {

@@ -168,7 +168,7 @@ MonoBehaviour:
     TerrainLayer:
       serializedVersion: 2
       m_Bits: 64
-    TerrainOffset: 0.25
+    TerrainOffset: 0
     AlignWithUnityTerrain: 1
     PossibleSpawnPrefabs:
     - {fileID: 2696363687451020858, guid: 4784a0182631f7d4fbd19a0c06591bb8, type: 3}
