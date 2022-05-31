@@ -12,23 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6438a21defbdbd2498d62a5e1bcc8225, type: 3}
   m_Name: Terrain Save File
   m_EditorClassIdentifier: 
-  SpawnsData:
-  - SpawnColor: {r: 1, g: 1, b: 1, a: 1}
-    SpawnName: Spawn Name
-    AutoStartSpawning: 0
-    UseUnityTerrain: 0
-    UnityTerrain: {fileID: 0}
-    TerrainLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    TerrainOffset: 0.5
-    AlignWithUnityTerrain: 1
-    PossibleSpawnPrefabs: []
-    OrderType: 0
-    AreaType: 0
-    TimerType: 0
-    MinRandomTime: 1
-    MaxRandomTime: 2
-    FixedTime: 1
-    CircleRadius: 1
-    SphereRadius: 1
+  SpawnsData: []

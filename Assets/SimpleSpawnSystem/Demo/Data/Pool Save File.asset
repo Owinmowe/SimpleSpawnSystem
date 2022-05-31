@@ -16,10 +16,11 @@ MonoBehaviour:
   - SpawnColor: {r: 1, g: 0, b: 0.782176, a: 1}
     SpawnName: Pool Spawn
     AutoStartSpawning: 1
+    UsePool: 1
     UseUnitParentTransform: 1
     UnitParentTransform: {fileID: 0}
-    UseCustomParentTransform: 1
-    CustomParentTransform: {fileID: 0}
+    UseSpawnParentTransform: 0
+    SpawnParentTransform: {fileID: 0}
     UseUnityTerrain: 0
     UnityTerrain: {fileID: 0}
     TerrainLayer:

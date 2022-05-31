@@ -20,7 +20,7 @@ namespace SimpleSpawnSystem.Core
 
         #region Serializable Fields
 
-        [SerializeField] private List<SimpleSpawnData> startingSpawnData = new List<SimpleSpawnData>();
+        [SerializeField] private List<SimpleSpawnData> startingSpawnData = new List<SimpleSpawnData>() { new SimpleSpawnData() };
 
         [SerializeField] private SimpleSpawnSaveFile saveFile = default;
 
@@ -33,12 +33,6 @@ namespace SimpleSpawnSystem.Core
         #endregion
 
         #region Unity Methods
-
-        private void Reset()
-        {
-            startingSpawnData = new List<SimpleSpawnData>();
-            AddSpawnData(new SimpleSpawnData());
-        }
 
         private void Awake()
         {
@@ -137,8 +131,6 @@ namespace SimpleSpawnSystem.Core
         #endregion
 
         #region Private Methods
-
-        private void AddSpawnData(SimpleSpawnData data) => startingSpawnData.Add(data);
 
         private void RemoveSpawnFromList(SimpleSpawn simpleSpawn) => currentSpawns.Remove(simpleSpawn);
 

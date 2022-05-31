@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEditor;
 
-
 namespace SimpleSpawnSystem.Core
 {
 
@@ -75,6 +74,7 @@ namespace SimpleSpawnSystem.Core
                 }
 
             }
+
         }
 
         #endregion
