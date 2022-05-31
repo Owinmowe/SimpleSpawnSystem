@@ -156,22 +156,29 @@ MonoBehaviour:
   - SpawnColor: {r: 0, g: 0.099416494, b: 1, a: 1}
     SpawnName: Terrain Spawn
     AutoStartSpawning: 1
+    UsePool: 1
+    PoolDefaultCapacity: 10
+    PoolMaxSize: 1000
+    UseUnitParentTransform: 0
+    UnitParentTransform: {fileID: 0}
+    UseSpawnParentTransform: 0
+    SpawnParentTransform: {fileID: 0}
     UseUnityTerrain: 1
     UnityTerrain: {fileID: 1538267988}
     TerrainLayer:
       serializedVersion: 2
       m_Bits: 64
-    TerrainOffset: 0.5
+    TerrainOffset: 0.25
     AlignWithUnityTerrain: 1
     PossibleSpawnPrefabs:
-    - {fileID: 5092005785864733377, guid: 268563fc78fc13c4c84058fc690865d9, type: 3}
-    - {fileID: 4130237939956609329, guid: c7101c1654f327d418973b56f5288629, type: 3}
-    - {fileID: 4288659375084690941, guid: 00debf919ef5e6f4fbe2537b96c902e3, type: 3}
-    - {fileID: 3070491234366511780, guid: ebc21ee0a78338f448b5dc54b18b20d2, type: 3}
-    - {fileID: 2963510116166506730, guid: d0acad90ddfb92d44a2184d5f730be65, type: 3}
-    - {fileID: 8354538149396665425, guid: d24ee9344512eb84587e53d3cfba1e59, type: 3}
-    - {fileID: 6638603833197987566, guid: 2d48bfc60647eef4886772374606c13b, type: 3}
-    - {fileID: 6135170421548348407, guid: 9b11b415ae3e75f47b37d507d8296932, type: 3}
+    - {fileID: 2696363687451020858, guid: 4784a0182631f7d4fbd19a0c06591bb8, type: 3}
+    - {fileID: 2696363687451020858, guid: 7e11b1dc061ccae4fa0c0fa0dac885cf, type: 3}
+    - {fileID: 2696363687451020858, guid: 728560fddf94c33408b0125b21bba297, type: 3}
+    - {fileID: 2696363687451020858, guid: 529b1cee15c6c9c4896150bcf730263d, type: 3}
+    - {fileID: 2696363687451020858, guid: 58e4c332672fc044296aeab78718e144, type: 3}
+    - {fileID: 2696363687451020858, guid: 303d0e7ca81653f46b21e823e96b5f35, type: 3}
+    - {fileID: 2696363687451020858, guid: 74e7fe1a51b5c1b4e9f330395d1d84b8, type: 3}
+    - {fileID: 2696363687451020858, guid: b36bbf67e2cb2a44e9d9348b350c9c77, type: 3}
     OrderType: 1
     AreaType: 1
     TimerType: 0

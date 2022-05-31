@@ -31,7 +31,7 @@ namespace SimpleSpawnSystem.Core
 
         private List<SimpleSpawn> currentSpawns = new List<SimpleSpawn>();
 
-        private Dictionary<Spawnable, ObjectPool<Spawnable>> poolsDictionary = new Dictionary<Spawnable, ObjectPool<Spawnable>>();
+        private Dictionary<GameObject, ObjectPool<Spawnable>> poolsDictionary = new Dictionary<GameObject, ObjectPool<Spawnable>>();
 
         #endregion
 
@@ -94,7 +94,7 @@ namespace SimpleSpawnSystem.Core
             if (pooled) 
             {
                 ObjectPool<Spawnable> pool;
-                if (poolsDictionary.TryGetValue(prefab, out pool))
+                if (poolsDictionary.TryGetValue(prefab.gameObject, out pool))
                 {
                     return pool.Get();
                 }
@@ -112,7 +112,7 @@ namespace SimpleSpawnSystem.Core
             if (pooled) 
             {
                 ObjectPool<Spawnable> pool;
-                if (poolsDictionary.TryGetValue(prefab, out pool))
+                if (poolsDictionary.TryGetValue(prefab.gameObject, out pool))
                 {
                     pool.Release(instance);
                     return;
@@ -142,7 +142,7 @@ namespace SimpleSpawnSystem.Core
                 foreach (var prefab in data.PossibleSpawnPrefabs)
                 {
 
-                    if (!poolsDictionary.ContainsKey(prefab)) 
+                    if (!poolsDictionary.ContainsKey(prefab.gameObject)) 
                     {
                         var pool = new ObjectPool<Spawnable>(() => 
                         {
@@ -164,7 +164,7 @@ namespace SimpleSpawnSystem.Core
                         data.PoolDefaultCapacity, 
                         data.PoolMaxSize
                         );
-                        poolsDictionary.Add(prefab, pool);
+                        poolsDictionary.Add(prefab.gameObject, pool);
                     }
 
                 }

@@ -9,7 +9,7 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Fields
 
-        public System.Action<Spawnable> OnGotDestroyed;
+        public System.Action<Spawnable> OnGotReleased;
         public SimpleSpawnData Data { get; set; }
 
         #endregion
@@ -74,7 +74,7 @@ namespace SimpleSpawnSystem.Core
 
         }
 
-        public void DestroyObject() 
+        public void ReleaseObject() 
         {
 
             if (Data.UsePool)
@@ -83,7 +83,7 @@ namespace SimpleSpawnSystem.Core
             }
             else Destroy(gameObject);
 
-            OnGotDestroyed?.Invoke(this);
+            OnGotReleased?.Invoke(this);
 
         }
 

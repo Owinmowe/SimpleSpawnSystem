@@ -354,7 +354,7 @@ namespace SimpleSpawnSystem.Core
         public void SpawnUnit()
         {
             var spawnable = currentSpawnAction();
-            spawnable.OnGotDestroyed += spawn => spawnedUnits.Remove(spawn);
+            spawnable.OnGotReleased += spawn => spawnedUnits.Remove(spawn);
         }
 
 

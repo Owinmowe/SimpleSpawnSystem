@@ -16,7 +16,7 @@ namespace SimpleSpawnSystem.Demo
 
         [SerializeField] private float movementSpeed = 10f;
 
-        [SerializeField] private float movementStartingOffset = -50f;
+        [SerializeField] private Vector3 movementStartingOffset = Vector3.zero;
 
         #endregion
 
@@ -30,7 +30,9 @@ namespace SimpleSpawnSystem.Demo
         {
             Vector3 position = transform.position;
 
-            position.z = Mathf.PingPong(Time.time * movementSpeed, movementRange) + movementStartingOffset;
+            position.z = Mathf.PingPong(Time.time * movementSpeed, movementRange);
+
+            position += movementStartingOffset;
 
             transform.position = position;
 
