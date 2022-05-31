@@ -133,18 +133,16 @@ namespace SimpleSpawnSystem.Utility
 
         #region Unity Methods
 
+        private void Update()
+        {
+
+            UpdateTime();
+
+        }
+
         #endregion
 
         #region Public Methods
-
-        public void UpdateTime() 
-        {
-
-            currentTime += Time.deltaTime;
-
-            if (currentTimeCheckDelegate()) OnTimerReached?.Invoke();
-
-        }
 
         public void SetRandomTimeUnsafe(float min, float max) 
         {
@@ -156,12 +154,21 @@ namespace SimpleSpawnSystem.Utility
 
         #region Private Methods
 
+        private void UpdateTime()
+        {
+
+            currentTime += Time.deltaTime;
+
+            while (currentTimeCheckDelegate()) OnTimerReached?.Invoke();
+
+        }
+
         private bool CheckTimeFixed() 
         {
 
             if(currentTime > FixedTime) 
             {
-                currentTime = 0;
+                currentTime -= FixedTime;
                 return true;
             }
 
@@ -174,7 +181,7 @@ namespace SimpleSpawnSystem.Utility
 
             if (currentTime > CurrentRandomSpawnTime)
             {
-                currentTime = 0;
+                currentTime -= CurrentRandomSpawnTime;
                 CurrentRandomSpawnTime = Random.Range(MinRandomTime, MaxRandomTime);
                 return true;
             }

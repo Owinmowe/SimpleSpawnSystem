@@ -269,8 +269,6 @@ namespace SimpleSpawnSystem.Core
         private void Update()
         {
 
-            Timer.UpdateTime();
-
             if (dataChanged)
             {
                 dataChanged = false;
