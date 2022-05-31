@@ -25,9 +25,9 @@ namespace SimpleSpawnSystem.Data
 
         private float startingYPosition = 40;
 
-        private float startingFullPropertyHeight = 410f;
+        private float startingFullPropertyHeight = 430f;
 
-        private float fullPropertyHeight = 410f;
+        private float fullPropertyHeight = 430f;
 
         #endregion
 
@@ -69,11 +69,16 @@ namespace SimpleSpawnSystem.Data
 
                 if (usePoolBoolProperty.boolValue) 
                 {
+
+                    EditorGUI.indentLevel = 1;
+
                     var poolDefaultCapacityRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                     EditorGUI.PropertyField(poolDefaultCapacityRect, property.FindPropertyRelative("PoolDefaultCapacity"));
 
                     var poolMaxSizeRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                     EditorGUI.PropertyField(poolMaxSizeRect, property.FindPropertyRelative("PoolMaxSize"));
+
+                    EditorGUI.indentLevel = 0;
                 }
 
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
@@ -85,8 +90,12 @@ namespace SimpleSpawnSystem.Data
 
                 if (useSpawnParentTransformBoolProperty.boolValue)
                 {
+                    EditorGUI.indentLevel = 1;
+
                     var SpawnParentTransformRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                     EditorGUI.PropertyField(SpawnParentTransformRect, property.FindPropertyRelative("SpawnParentTransform"));
+
+                    EditorGUI.indentLevel = 0;
                 }
 
                 var useUnitParentTransformBoolProperty = property.FindPropertyRelative("UseUnitParentTransform");
@@ -95,8 +104,12 @@ namespace SimpleSpawnSystem.Data
 
                 if (useUnitParentTransformBoolProperty.boolValue)
                 {
+                    EditorGUI.indentLevel = 1;
+
                     var unitParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                     EditorGUI.PropertyField(unitParentRect, property.FindPropertyRelative("UnitParentTransform"));
+
+                    EditorGUI.indentLevel = 0;
                 }
 
                 var useTerrainBoolProperty = property.FindPropertyRelative("UseUnityTerrain");
@@ -105,6 +118,8 @@ namespace SimpleSpawnSystem.Data
 
                 if (useTerrainBoolProperty.boolValue) 
                 {
+
+                    EditorGUI.indentLevel = 1;
 
                     var unityTerrain = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                     EditorGUI.PropertyField(unityTerrain, property.FindPropertyRelative("UnityTerrain"));
@@ -117,6 +132,8 @@ namespace SimpleSpawnSystem.Data
 
                     var terrainAlignRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                     EditorGUI.PropertyField(terrainAlignRect, property.FindPropertyRelative("AlignWithUnityTerrain"));
+
+                    EditorGUI.indentLevel = 0;
 
                 }
 
