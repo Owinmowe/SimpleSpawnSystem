@@ -66,6 +66,16 @@ namespace SimpleSpawnSystem.Data
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
 
+                var useCustomParentTransformBoolProperty = property.FindPropertyRelative("UseCustomParentTransform");
+                var useParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                EditorGUI.PropertyField(useParentRect, useCustomParentTransformBoolProperty);
+
+                if (useCustomParentTransformBoolProperty.boolValue) 
+                {
+                    var customParentRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(customParentRect, property.FindPropertyRelative("CustomParentTransform"));
+                }
+
                 var useTerrainBoolProperty = property.FindPropertyRelative("UseUnityTerrain");
                 var useTerrainRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(useTerrainRect, useTerrainBoolProperty);
@@ -175,10 +185,17 @@ namespace SimpleSpawnSystem.Data
 
             fullPropertyHeight = startingFullPropertyHeight;
 
+            var useCustomParentTransformBoolProperty = property.FindPropertyRelative("UseCustomParentTransform");
+
+            if (useCustomParentTransformBoolProperty.boolValue)
+            {
+                fullPropertyHeight += 30;
+            }
+
             var useTerrainBoolProperty = property.FindPropertyRelative("UseUnityTerrain");
             if (useTerrainBoolProperty.boolValue) 
             {
-                fullPropertyHeight += 90;
+                fullPropertyHeight += 120;
             }
 
             var possibleSpawnsProperty = property.FindPropertyRelative("PossibleSpawnPrefabs");

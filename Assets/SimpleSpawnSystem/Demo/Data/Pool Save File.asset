@@ -24,11 +24,11 @@ MonoBehaviour:
     TerrainOffset: 0.5
     AlignWithUnityTerrain: 1
     PossibleSpawnPrefabs: []
-    OrderType: 0
-    AreaType: 0
+    OrderType: 1
+    AreaType: 2
     TimerType: 0
     MinRandomTime: 1
     MaxRandomTime: 2
-    FixedTime: 1
+    FixedTime: 0.1
     CircleRadius: 1
-    SphereRadius: 1
+    SphereRadius: 100

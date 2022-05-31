@@ -56,9 +56,9 @@ namespace SimpleSpawnSystem.Core
         private void Start()
         {
 
-            if(saveFile == null) 
+            if(startingSpawnData == null) 
             {
-                Debug.LogError("Spawn configuration scriptable object not set in Simple Spawn Manager.");
+                Debug.LogError("Spawn starting configuration not set in Simple Spawn Manager.");
                 return;
             }
 
