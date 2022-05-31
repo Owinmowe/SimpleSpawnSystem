@@ -25,9 +25,9 @@ namespace SimpleSpawnSystem.Data
 
         private float startingYPosition = 40;
 
-        private float startingFullPropertyHeight = 380f;
+        private float startingFullPropertyHeight = 410f;
 
-        private float fullPropertyHeight = 380f;
+        private float fullPropertyHeight = 410f;
 
         #endregion
 
@@ -62,6 +62,10 @@ namespace SimpleSpawnSystem.Data
 
                 var spawnColorRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(spawnColorRect, property.FindPropertyRelative("SpawnColor"));
+
+                var usePoolBoolProperty = property.FindPropertyRelative("UsePool");
+                var usePoolBoolRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                EditorGUI.PropertyField(usePoolBoolRect, usePoolBoolProperty);
 
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
@@ -194,6 +198,13 @@ namespace SimpleSpawnSystem.Data
             if (!property.isExpanded) return 17.5f;
 
             fullPropertyHeight = startingFullPropertyHeight;
+
+            var usePoolBoolProperty = property.FindPropertyRelative("UsePool");
+
+            if (usePoolBoolProperty.boolValue) 
+            {
+                fullPropertyHeight += 30;
+            }
 
             var useUnitParentTransformBoolProperty = property.FindPropertyRelative("UseUnitParentTransform");
 

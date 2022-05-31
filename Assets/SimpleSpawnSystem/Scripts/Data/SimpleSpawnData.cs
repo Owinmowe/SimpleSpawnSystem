@@ -17,6 +17,8 @@ namespace SimpleSpawnSystem.Data
 
         public bool AutoStartSpawning;
 
+        public bool UsePool;
+
         public bool UseUnitParentTransform;
 
         public Transform UnitParentTransform;
@@ -74,6 +76,8 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = false;
 
+            UsePool = true;
+
             UseUnitParentTransform = false;
 
             UnitParentTransform = default;
@@ -120,6 +124,8 @@ namespace SimpleSpawnSystem.Data
             SpawnName = data.SpawnName;
 
             AutoStartSpawning = data.AutoStartSpawning;
+
+            UsePool = data.UsePool;
 
             UseUnitParentTransform = data.UseUnitParentTransform;
 
