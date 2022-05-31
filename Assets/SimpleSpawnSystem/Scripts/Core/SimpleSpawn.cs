@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleSpawnSystem.Utility;
@@ -445,18 +444,6 @@ namespace SimpleSpawnSystem.Core
 
         }
 
-        private void RecreateSpawnIndexList() 
-        {
-            CurrentRandomNotRepeatedList.Clear();
-
-            for (int i = 0; i < PossibleSpawns.Length; i++)
-            {
-                CurrentRandomNotRepeatedList.Add(i);
-            }
-
-            CurrentRandomNotRepeatedList = CurrentRandomNotRepeatedList.OrderBy(number => Random.Range(0, int.MaxValue)).ToList();
-        }
-
         #endregion
 
         #region Spawn Location Methods
@@ -477,6 +464,37 @@ namespace SimpleSpawnSystem.Core
         private Vector3 SpawnLocationRandomSphere() 
         {
             return transform.position + Random.insideUnitSphere * CurrentRandomSphereSpawnSize;
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        private void RecreateSpawnIndexList()
+        {
+
+            CurrentRandomNotRepeatedList.Clear();
+
+            for (int i = 0; i < PossibleSpawns.Length; i++)
+            {
+                CurrentRandomNotRepeatedList.Add(i);
+            }
+
+            Shuffle(currentRandomNotRepeatedList);
+
+        }
+
+        private void Shuffle<T>(List<T> ts)
+        {
+            var count = ts.Count;
+            var last = count - 1;
+            for (var i = 0; i < last; ++i)
+            {
+                var r = Random.Range(i, count);
+                var tmp = ts[i];
+                ts[i] = ts[r];
+                ts[r] = tmp;
+            }
         }
 
         #endregion
