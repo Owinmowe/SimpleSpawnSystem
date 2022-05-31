@@ -19,6 +19,10 @@ namespace SimpleSpawnSystem.Data
 
         public bool UsePool;
 
+        public int PoolDefaultCapacity;
+
+        public int PoolMaxSize;
+
         public bool UseUnitParentTransform;
 
         public Transform UnitParentTransform;
@@ -78,6 +82,10 @@ namespace SimpleSpawnSystem.Data
 
             UsePool = true;
 
+            PoolDefaultCapacity = 10;
+
+            PoolMaxSize = 1000;
+
             UseUnitParentTransform = false;
 
             UnitParentTransform = default;
@@ -126,6 +134,10 @@ namespace SimpleSpawnSystem.Data
             AutoStartSpawning = data.AutoStartSpawning;
 
             UsePool = data.UsePool;
+
+            PoolDefaultCapacity = data.PoolDefaultCapacity;
+
+            PoolMaxSize = data.PoolMaxSize;
 
             UseUnitParentTransform = data.UseUnitParentTransform;
 
