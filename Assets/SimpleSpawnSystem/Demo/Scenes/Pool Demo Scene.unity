@@ -462,7 +462,9 @@ MonoBehaviour:
   - SpawnColor: {r: 1, g: 0, b: 0.782176, a: 1}
     SpawnName: Pool Spawn
     AutoStartSpawning: 1
-    UsePool: 0
+    UsePool: 1
+    PoolDefaultCapacity: 1000
+    PoolMaxSize: 10000
     UseUnitParentTransform: 1
     UnitParentTransform: {fileID: 755482287}
     UseSpawnParentTransform: 1
@@ -488,7 +490,7 @@ MonoBehaviour:
     TimerType: 0
     MinRandomTime: 0.2
     MaxRandomTime: 0.5
-    FixedTime: 0.005
+    FixedTime: 1
     CircleRadius: 10
     SphereRadius: 10
   - SpawnColor: {r: 1, g: 0, b: 0.782176, a: 1}

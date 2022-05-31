@@ -67,6 +67,15 @@ namespace SimpleSpawnSystem.Data
                 var usePoolBoolRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(usePoolBoolRect, usePoolBoolProperty);
 
+                if (usePoolBoolProperty.boolValue) 
+                {
+                    var poolDefaultCapacityRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(poolDefaultCapacityRect, property.FindPropertyRelative("PoolDefaultCapacity"));
+
+                    var poolMaxSizeRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                    EditorGUI.PropertyField(poolMaxSizeRect, property.FindPropertyRelative("PoolMaxSize"));
+                }
+
                 var autoStartRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(autoStartRect, property.FindPropertyRelative("AutoStartSpawning"));
 
@@ -203,7 +212,7 @@ namespace SimpleSpawnSystem.Data
 
             if (usePoolBoolProperty.boolValue) 
             {
-                fullPropertyHeight += 30;
+                fullPropertyHeight += 60;
             }
 
             var useUnitParentTransformBoolProperty = property.FindPropertyRelative("UseUnitParentTransform");

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 using SimpleSpawnSystem.Data;
 
 namespace SimpleSpawnSystem.Core
@@ -29,6 +30,8 @@ namespace SimpleSpawnSystem.Core
         #region Private Fields
 
         private List<SimpleSpawn> currentSpawns = new List<SimpleSpawn>();
+
+        private Dictionary<Spawnable, ObjectPool<Spawnable>> poolsDictionary = new Dictionary<Spawnable, ObjectPool<Spawnable>>();
 
         #endregion
 
@@ -92,6 +95,42 @@ namespace SimpleSpawnSystem.Core
 
         }
 
+        public Spawnable GetSpawnable(bool pooled, Spawnable prefab) 
+        {
+            if (pooled) 
+            {
+                ObjectPool<Spawnable> pool;
+                if (poolsDictionary.TryGetValue(prefab, out pool))
+                {
+                    return pool.Get();
+                }
+                else 
+                {
+                    Debug.LogWarning("Spawnable not in pool. Instantiating normally.");
+                }
+                
+            }
+            return Instantiate(prefab);
+        }
+
+        public void DestroySpawnable(bool pooled, Spawnable prefab, Spawnable instance) 
+        {
+            if (pooled) 
+            {
+                ObjectPool<Spawnable> pool;
+                if (poolsDictionary.TryGetValue(prefab, out pool))
+                {
+                    pool.Release(instance);
+                    return;
+                }
+                else
+                {
+                    Debug.LogWarning("Instance not in pool. Destroying normally.");
+                }
+            }
+            Destroy(instance.gameObject);
+        }
+
         public int CreateSpawn(SimpleSpawnData data) 
         {
 
@@ -102,6 +141,41 @@ namespace SimpleSpawnSystem.Core
             spawn.SetSpawnData(data);
 
             spawn.OnMonoDestroyed += RemoveSpawnFromList;
+
+            if (data.UsePool) 
+            {
+
+                foreach (var prefab in data.PossibleSpawnPrefabs)
+                {
+
+                    if (!poolsDictionary.ContainsKey(prefab)) 
+                    {
+                        var pool = new ObjectPool<Spawnable>(() => 
+                        {
+                            return Instantiate(prefab);
+                        }, 
+                        obj =>
+                        {
+                            obj.gameObject.SetActive(true);
+                        }, 
+                        obj =>
+                        {
+                            obj.gameObject.SetActive(false);
+                        }, 
+                        obj =>
+                        {
+                            Destroy(obj.gameObject);
+                        }, 
+                        true,
+                        data.PoolDefaultCapacity, 
+                        data.PoolMaxSize
+                        );
+                        poolsDictionary.Add(prefab, pool);
+                    }
+
+                }
+
+            }
 
             currentSpawns.Add(spawn);
 

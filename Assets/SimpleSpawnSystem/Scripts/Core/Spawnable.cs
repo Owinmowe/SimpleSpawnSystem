@@ -9,6 +9,7 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Fields
 
+        public System.Action<Spawnable> OnGotDestroyed;
         public SimpleSpawnData Data { get; set; }
 
         #endregion
@@ -19,11 +20,11 @@ namespace SimpleSpawnSystem.Core
 
         #region Private Fields
 
+        private Spawnable prefabReference = null;
+
         private RaycastHit[] terrainRaycastHitResults = new RaycastHit[10];
 
         private const float terrainDistanceCheck = 50f;
-
-        private TerrainCollider terrainCollider = default;
 
         #endregion
 
@@ -33,13 +34,13 @@ namespace SimpleSpawnSystem.Core
 
         #region Public Methods
 
-        public void ApplySpawnModifiers(SimpleSpawnData data) 
+        public void ApplySpawnModifiers(SimpleSpawnData data, Spawnable prefabReference) 
         {
+
+            Data = data;
 
             if (data.UseUnityTerrain && data.UnityTerrain != null)
             {
-
-                terrainCollider = data.UnityTerrain.GetComponent<TerrainCollider>();
 
                 Vector3 position = transform.position;
                 float terrainY = data.UnityTerrain.SampleHeight(position);
@@ -69,7 +70,23 @@ namespace SimpleSpawnSystem.Core
                 transform.parent = data.UnitParentTransform;
             }
 
+            this.prefabReference = prefabReference;
+
         }
+
+        public void DestroyObject() 
+        {
+
+            if (Data.UsePool)
+            {
+                SimpleSpawnManager.instance.DestroySpawnable(Data.UsePool, prefabReference, this);
+            }
+            else Destroy(gameObject);
+
+            OnGotDestroyed?.Invoke(this);
+
+        }
+
 
         #endregion
 

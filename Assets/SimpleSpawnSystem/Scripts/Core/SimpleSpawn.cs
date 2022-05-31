@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 using SimpleSpawnSystem.Utility;
 using SimpleSpawnSystem.Data;
 #if UNITY_EDITOR
@@ -354,11 +353,10 @@ namespace SimpleSpawnSystem.Core
 
         public void SpawnUnit()
         {
-
             var spawnable = currentSpawnAction();
-            spawnable.ApplySpawnModifiers(data);
-
+            spawnable.OnGotDestroyed += spawn => spawnedUnits.Remove(spawn);
         }
+
 
         public void DestroyAllUnits() 
         {
@@ -385,11 +383,19 @@ namespace SimpleSpawnSystem.Core
 
             int unitIndex = Random.Range(0, PossibleSpawns.Length);
 
-            var go = Instantiate(PossibleSpawns[unitIndex], currentSpawnLocation(), Quaternion.identity, transform);
+            Spawnable spawnablePrefab = PossibleSpawns[unitIndex];
 
-            spawnedUnits.Add(go);
+            var spawnable = creatorManager.GetSpawnable(data.UsePool, spawnablePrefab);
 
-            return go;
+            spawnable.transform.position = currentSpawnLocation();
+
+            spawnable.transform.SetParent(transform);
+
+            spawnedUnits.Add(spawnable);
+
+            spawnable.ApplySpawnModifiers(data, spawnablePrefab);
+
+            return spawnable;
 
         }
 
@@ -398,28 +404,44 @@ namespace SimpleSpawnSystem.Core
 
             if(CurrentSequentialSpawn >= PossibleSpawns.Length) CurrentSequentialSpawn = 0;
 
-            var go = Instantiate(PossibleSpawns[CurrentSequentialSpawn], currentSpawnLocation(), Quaternion.identity, transform);
+            Spawnable spawnablePrefab = PossibleSpawns[CurrentSequentialSpawn];
 
-            spawnedUnits.Add(go);
+            var spawnable = creatorManager.GetSpawnable(data.UsePool, spawnablePrefab);
+
+            spawnable.transform.position = currentSpawnLocation();
+
+            spawnable.transform.SetParent(transform);
+
+            spawnedUnits.Add(spawnable);
+
+            spawnable.ApplySpawnModifiers(data, spawnablePrefab);
 
             CurrentSequentialSpawn++;
 
-            return go;
+            return spawnable;
 
         }
 
         private Spawnable SpawnRandomNotRepeatedUnit() 
         {
 
-            var go = Instantiate(PossibleSpawns[CurrentRandomNotRepeatedList[0]], currentSpawnLocation(), Quaternion.identity, transform);
+            Spawnable spawnablePrefab = PossibleSpawns[CurrentRandomNotRepeatedList[0]];
 
-            spawnedUnits.Add(go);
+            var spawnable = creatorManager.GetSpawnable(data.UsePool, spawnablePrefab);
+
+            spawnable.transform.position = currentSpawnLocation();
+
+            spawnable.transform.SetParent(transform);
+
+            spawnedUnits.Add(spawnable);
+
+            spawnable.ApplySpawnModifiers(data, spawnablePrefab);
 
             CurrentRandomNotRepeatedList.RemoveAt(0);
 
             if (CurrentRandomNotRepeatedList.Count == 0) RecreateSpawnIndexList();
 
-            return go;
+            return spawnable;
 
         }
 
