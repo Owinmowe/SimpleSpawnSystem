@@ -12,36 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6438a21defbdbd2498d62a5e1bcc8225, type: 3}
   m_Name: Pool Save File
   m_EditorClassIdentifier: 
-  SpawnsData:
-  - SpawnColor: {r: 1, g: 0, b: 0.782176, a: 1}
-    SpawnName: Pool Spawn
-    AutoStartSpawning: 1
-    UsePool: 1
-    UseUnitParentTransform: 1
-    UnitParentTransform: {fileID: 0}
-    UseSpawnParentTransform: 0
-    SpawnParentTransform: {fileID: 0}
-    UseUnityTerrain: 0
-    UnityTerrain: {fileID: 0}
-    TerrainLayer:
-      serializedVersion: 2
-      m_Bits: 0
-    TerrainOffset: 0.5
-    AlignWithUnityTerrain: 1
-    PossibleSpawnPrefabs:
-    - {fileID: 3871186214251071865, guid: 232e19fb93954884c9ce232b0446f8ee, type: 3}
-    - {fileID: 3417143896741892092, guid: b6631a8cfed09064698b1325520b5cc1, type: 3}
-    - {fileID: 7394770897921521227, guid: 4e815d7ef34b1134197f50367698aef6, type: 3}
-    - {fileID: -756249808877558639, guid: 0bbc9fa306d444b499607629c6947d25, type: 3}
-    - {fileID: 7081053249595010028, guid: 0cd95b162b3172247b4fe06bf8c204c7, type: 3}
-    - {fileID: -8061230900682264480, guid: 0d5519f1642985c4487a9ad00a670a60, type: 3}
-    - {fileID: 5632884254734082381, guid: 68af0bee3d4c1e64d9d9b007e35a0728, type: 3}
-    - {fileID: -7918982855333773851, guid: d2c289cf7f97edd4786e6211a02824a8, type: 3}
-    OrderType: 0
-    AreaType: 1
-    TimerType: 0
-    MinRandomTime: 0.2
-    MaxRandomTime: 0.5
-    FixedTime: 0.005
-    CircleRadius: 10
-    SphereRadius: 10

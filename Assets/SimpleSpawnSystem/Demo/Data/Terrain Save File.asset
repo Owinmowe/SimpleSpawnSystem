@@ -12,38 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6438a21defbdbd2498d62a5e1bcc8225, type: 3}
   m_Name: Terrain Save File
   m_EditorClassIdentifier: 
-  SpawnsData:
-  - SpawnColor: {r: 0, g: 0.099416494, b: 1, a: 1}
-    SpawnName: Terrain Spawn
-    AutoStartSpawning: 1
-    UsePool: 1
-    PoolDefaultCapacity: 10
-    PoolMaxSize: 1000
-    UseUnitParentTransform: 0
-    UnitParentTransform: {fileID: 0}
-    UseSpawnParentTransform: 0
-    SpawnParentTransform: {fileID: 0}
-    UseUnityTerrain: 1
-    UnityTerrain: {fileID: 0}
-    TerrainLayer:
-      serializedVersion: 2
-      m_Bits: 64
-    TerrainOffset: 0.5
-    AlignWithUnityTerrain: 1
-    PossibleSpawnPrefabs:
-    - {fileID: 2696363687451020858, guid: 4784a0182631f7d4fbd19a0c06591bb8, type: 3}
-    - {fileID: 2696363687451020858, guid: 7e11b1dc061ccae4fa0c0fa0dac885cf, type: 3}
-    - {fileID: 2696363687451020858, guid: 728560fddf94c33408b0125b21bba297, type: 3}
-    - {fileID: 2696363687451020858, guid: 529b1cee15c6c9c4896150bcf730263d, type: 3}
-    - {fileID: 2696363687451020858, guid: 58e4c332672fc044296aeab78718e144, type: 3}
-    - {fileID: 2696363687451020858, guid: 303d0e7ca81653f46b21e823e96b5f35, type: 3}
-    - {fileID: 2696363687451020858, guid: 74e7fe1a51b5c1b4e9f330395d1d84b8, type: 3}
-    - {fileID: 2696363687451020858, guid: b36bbf67e2cb2a44e9d9348b350c9c77, type: 3}
-    OrderType: 1
-    AreaType: 1
-    TimerType: 0
-    MinRandomTime: 1
-    MaxRandomTime: 2
-    FixedTime: 1
-    CircleRadius: 20
-    SphereRadius: 1

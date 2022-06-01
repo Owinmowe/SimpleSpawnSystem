@@ -8,7 +8,18 @@ namespace SimpleSpawnSystem.Data
     {
 
         #region Public Fields
-        public bool Empty { get; set; } = true;
+
+        public bool Empty 
+        {
+            set 
+            {
+                empty = value;
+            } 
+            get 
+            {
+                return empty;
+            }
+        }
 
         #endregion
 
@@ -19,6 +30,8 @@ namespace SimpleSpawnSystem.Data
         #region Private Fields
 
         private string hash = "";
+
+        private bool empty = true;
 
         #endregion
 
@@ -39,7 +52,9 @@ namespace SimpleSpawnSystem.Data
                 hash += 'ç';
             }
 
-            Empty = false;
+            empty = false;
+
+            ForceSerialization();
 
         }
 
@@ -62,6 +77,13 @@ namespace SimpleSpawnSystem.Data
         #endregion
 
         #region Private Methods
+
+        private void ForceSerialization()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+#endif
+        }
 
         #endregion
 
