@@ -8,8 +8,7 @@ namespace SimpleSpawnSystem.Data
     {
 
         #region Public Fields
-
-        public List<SimpleSpawnData> SpawnsData = new List<SimpleSpawnData>() { new SimpleSpawnData() };
+        public bool Empty { get; set; } = true;
 
         #endregion
 
@@ -18,6 +17,8 @@ namespace SimpleSpawnSystem.Data
         #endregion
 
         #region Private Fields
+
+        private string hash = "";
 
         #endregion
 
@@ -29,23 +30,33 @@ namespace SimpleSpawnSystem.Data
 
         public void SaveFile(List<SimpleSpawnData> writeData) 
         {
-            SpawnsData.Clear();
+
+            hash = "";
+
             foreach (var data in writeData)
             {
-                var newData = new SimpleSpawnData(data);
-                SpawnsData.Add(newData);
+                hash += JsonUtility.ToJson(data);
+                hash += 'ç';
             }
+
+            Empty = false;
+
         }
 
-        public List<SimpleSpawnData> ReadFile() 
+        public List<SimpleSpawnData> LoadFromFile() 
         {
+
             List<SimpleSpawnData> readData = new List<SimpleSpawnData>();
-            foreach (var data in SpawnsData)
+
+            string[] hashes = hash.Split('ç');
+
+            for (int i = 0; i < hashes.Length - 1; i++)
             {
-                var newData = new SimpleSpawnData(data);
-                readData.Add(newData);
+                readData.Add(JsonUtility.FromJson<SimpleSpawnData>(hashes[i]));
             }
+
             return readData;
+
         }
 
         #endregion

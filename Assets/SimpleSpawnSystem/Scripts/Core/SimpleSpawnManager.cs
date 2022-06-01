@@ -177,28 +177,13 @@ namespace SimpleSpawnSystem.Core
 
         }
 
-        public void WriteDataToSaveFile() 
-        {
-
-            var dataToSave = new List<SimpleSpawnData>();
-            foreach (var data in startingSpawnData)
-            {
-                dataToSave.Add(new SimpleSpawnData(data));
-            }
-
-            saveFile.SpawnsData.Clear();
-            saveFile.SpawnsData = dataToSave;
-
-        }
+        public void WriteDataToSaveFile() => saveFile.SaveFile(startingSpawnData);
 
         public void ReadDataFromSaveFile() 
         {
 
             startingSpawnData.Clear();
-            foreach (var data in saveFile.SpawnsData)
-            {
-                startingSpawnData.Add(new SimpleSpawnData(data));
-            }
+            startingSpawnData = saveFile.LoadFromFile();
 
         }
 

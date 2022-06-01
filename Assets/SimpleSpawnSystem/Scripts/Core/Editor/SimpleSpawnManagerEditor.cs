@@ -68,9 +68,11 @@ namespace SimpleSpawnSystem.Core
 
                 GUILayout.Space(10);
 
-                if (GUILayout.Button("Load from file"))
+                if (!script.SaveFile.Empty && GUILayout.Button("Load from file"))
                 {
                     script.ReadDataFromSaveFile();
+                    Repaint();
+                    GUI.FocusControl(null);
                 }
 
             }
