@@ -154,7 +154,7 @@ namespace SimpleSpawnSystem.Data
                 EditorGUI.PropertyField(spawnOrderRect, spawnOrderProperty);
 
                 var spawnOrderType = GetCurrentOrderType(spawnOrderProperty.enumValueIndex);
-
+                EditorGUI.indentLevel = 1;
                 switch (spawnOrderType)
                 {
                     case SpawnOrderType.Sequential:
@@ -170,7 +170,7 @@ namespace SimpleSpawnSystem.Data
                     default:
                         break;
                 }
-
+                EditorGUI.indentLevel = 0;
 
                 var spawnAreaProperty = property.FindPropertyRelative("AreaType");
                 var spawnAreaRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
