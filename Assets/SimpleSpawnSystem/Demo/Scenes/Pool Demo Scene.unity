@@ -556,7 +556,7 @@ MonoBehaviour:
   - SpawnColor: {r: 1, g: 0, b: 0.782176, a: 1}
     SpawnName: Pool Spawn 1
     AutoStartSpawning: 1
-    UsePool: 1
+    UsePoolingSystem: 1
     PoolDefaultCapacity: 1000
     PoolMaxSize: 10000
     UseUnitParentTransform: 1
@@ -583,7 +583,7 @@ MonoBehaviour:
   - SpawnColor: {r: 0.26833344, g: 1, b: 0, a: 1}
     SpawnName: Pool Spawn 2
     AutoStartSpawning: 1
-    UsePool: 1
+    UsePoolingSystem: 1
     PoolDefaultCapacity: 1000
     PoolMaxSize: 10000
     UseUnitParentTransform: 1
@@ -610,7 +610,7 @@ MonoBehaviour:
   - SpawnColor: {r: 0.06607056, g: 0, b: 1, a: 1}
     SpawnName: Pool Spawn 3
     AutoStartSpawning: 1
-    UsePool: 1
+    UsePoolingSystem: 1
     PoolDefaultCapacity: 1000
     PoolMaxSize: 10000
     UseUnitParentTransform: 1

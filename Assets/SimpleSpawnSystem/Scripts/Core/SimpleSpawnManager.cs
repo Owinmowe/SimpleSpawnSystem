@@ -136,7 +136,7 @@ namespace SimpleSpawnSystem.Core
 
             spawn.OnMonoDestroyed += RemoveSpawnFromList;
 
-            if (data.UsePool) 
+            if (data.UsePoolingSystem) 
             {
 
                 foreach (var prefab in data.PossibleSpawnPrefabs)

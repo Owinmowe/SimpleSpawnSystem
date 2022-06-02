@@ -63,7 +63,7 @@ namespace SimpleSpawnSystem.Data
                 var spawnColorRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(spawnColorRect, property.FindPropertyRelative("SpawnColor"));
 
-                var usePoolBoolProperty = property.FindPropertyRelative("UsePool");
+                var usePoolBoolProperty = property.FindPropertyRelative("UsePoolingSystem");
                 var usePoolBoolRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
                 EditorGUI.PropertyField(usePoolBoolRect, usePoolBoolProperty);
 
@@ -225,7 +225,7 @@ namespace SimpleSpawnSystem.Data
 
             fullPropertyHeight = startingFullPropertyHeight;
 
-            var usePoolBoolProperty = property.FindPropertyRelative("UsePool");
+            var usePoolBoolProperty = property.FindPropertyRelative("UsePoolingSystem");
 
             if (usePoolBoolProperty.boolValue) 
             {

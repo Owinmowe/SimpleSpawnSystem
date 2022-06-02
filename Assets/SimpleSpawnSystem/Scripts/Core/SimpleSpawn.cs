@@ -67,23 +67,23 @@ namespace SimpleSpawnSystem.Core
                 {
                     case SpawnOrderType.Sequential:
                         CurrentSequentialSpawn = 0;
-                        currentSpawnAction = SpawnSequentialUnit;
+                        currentSpawnAction = DelegateSpawnSequentialUnit;
                         break;
 
                     case SpawnOrderType.Randomized:
-                        currentSpawnAction = SpawnRandomUnit;
+                        currentSpawnAction = DelegateSpawnRandomUnit;
                         break;
 
                     case SpawnOrderType.RandomNotRepeated:
                         RecreateSpawnIndexList();
-                        currentSpawnAction = SpawnRandomNotRepeatedUnit;
+                        currentSpawnAction = DelegateSpawnRandomNotRepeatedUnit;
                         break;
 
                     default:
                         Debug.LogWarning("Spawn order type not implemented. Spawn order set to sequential.");
                         data.OrderType = SpawnOrderType.Sequential;
                         CurrentSequentialSpawn = 0;
-                        currentSpawnAction = SpawnSequentialUnit;
+                        currentSpawnAction = DelegateSpawnSequentialUnit;
                         break;
                 }
 
@@ -108,21 +108,21 @@ namespace SimpleSpawnSystem.Core
                 {
                     
                     case SpawnAreaType.OnCenterPoint:
-                        currentSpawnLocation = SpawnLocationOnCenter;
+                        currentSpawnLocation = DelegateSpawnLocationOnCenter;
                         break;
                     
                     case SpawnAreaType.OnRandomAreaCircle:
-                        currentSpawnLocation = SpawnLocationRandomCircle;
+                        currentSpawnLocation = DelegateSpawnLocationRandomCircle;
                         break;
                     
                     case SpawnAreaType.OnRandomAreaSphere:
-                        currentSpawnLocation = SpawnLocationRandomSphere;
+                        currentSpawnLocation = DelegateSpawnLocationRandomSphere;
                         break;
                 
                     default:
                         Debug.LogWarning("Area Type not implemented. Spawn area set to center point.");
                         data.AreaType = SpawnAreaType.OnCenterPoint;
-                        currentSpawnLocation = SpawnLocationOnCenter;
+                        currentSpawnLocation = DelegateSpawnLocationOnCenter;
                         break;
 
                 }
@@ -255,6 +255,30 @@ namespace SimpleSpawnSystem.Core
 
         private bool dataChanged = false;
 
+        // The reason to create delegates for this, is for caching the function casting into delegate, reducion GC allocations (Around 1kb)
+
+        #region Spawn Methods Delegates
+
+        private SpawnAction DelegateSpawnRandomUnit = default;
+
+        private SpawnAction DelegateSpawnSequentialUnit = default;
+
+        private SpawnAction DelegateSpawnRandomNotRepeatedUnit = default;
+
+        #endregion
+
+        private GetSpawnLocation DelegateSpawnLocationOnCenter = default;
+
+        private GetSpawnLocation DelegateSpawnLocationRandomCircle = default;
+
+        private GetSpawnLocation DelegateSpawnLocationRandomSphere = default;
+
+        #region Spawn Location Methods Delegates
+
+
+
+        #endregion
+
         #endregion
 
         #region Unity Methods
@@ -263,6 +287,14 @@ namespace SimpleSpawnSystem.Core
         {
 
             Timer = gameObject.AddComponent<SimpleSpawnTimer>();
+
+            DelegateSpawnRandomUnit = SpawnRandomUnit;
+            DelegateSpawnSequentialUnit = SpawnSequentialUnit;
+            DelegateSpawnRandomNotRepeatedUnit = SpawnRandomNotRepeatedUnit;
+
+            DelegateSpawnLocationOnCenter = SpawnLocationOnCenter;
+            DelegateSpawnLocationRandomCircle = SpawnLocationRandomCircle;
+            DelegateSpawnLocationRandomSphere = SpawnLocationRandomSphere;
 
         }
 
@@ -382,7 +414,7 @@ namespace SimpleSpawnSystem.Core
 
             Spawnable spawnablePrefab = PossibleSpawns[unitIndex];
 
-            var spawnable = creatorManager.GetSpawnable(data.UsePool, spawnablePrefab);
+            var spawnable = creatorManager.GetSpawnable(data.UsePoolingSystem, spawnablePrefab);
 
             spawnable.transform.position = currentSpawnLocation();
 
@@ -403,7 +435,7 @@ namespace SimpleSpawnSystem.Core
 
             Spawnable spawnablePrefab = PossibleSpawns[CurrentSequentialSpawn];
 
-            var spawnable = creatorManager.GetSpawnable(data.UsePool, spawnablePrefab);
+            var spawnable = creatorManager.GetSpawnable(data.UsePoolingSystem, spawnablePrefab);
 
             spawnable.transform.position = currentSpawnLocation();
 
@@ -424,7 +456,7 @@ namespace SimpleSpawnSystem.Core
 
             Spawnable spawnablePrefab = PossibleSpawns[CurrentRandomNotRepeatedList[0]];
 
-            var spawnable = creatorManager.GetSpawnable(data.UsePool, spawnablePrefab);
+            var spawnable = creatorManager.GetSpawnable(data.UsePoolingSystem, spawnablePrefab);
 
             spawnable.transform.position = currentSpawnLocation();
 

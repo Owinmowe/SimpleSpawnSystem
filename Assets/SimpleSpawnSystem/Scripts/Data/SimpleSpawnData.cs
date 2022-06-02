@@ -17,7 +17,7 @@ namespace SimpleSpawnSystem.Data
 
         public bool AutoStartSpawning;
 
-        public bool UsePool;
+        public bool UsePoolingSystem;
 
         public int PoolDefaultCapacity;
 
@@ -80,7 +80,7 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = false;
 
-            UsePool = true;
+            UsePoolingSystem = true;
 
             PoolDefaultCapacity = 10;
 
@@ -133,7 +133,7 @@ namespace SimpleSpawnSystem.Data
 
             AutoStartSpawning = data.AutoStartSpawning;
 
-            UsePool = data.UsePool;
+            UsePoolingSystem = data.UsePoolingSystem;
 
             PoolDefaultCapacity = data.PoolDefaultCapacity;
 

@@ -77,9 +77,9 @@ namespace SimpleSpawnSystem.Core
         public void ReleaseObject() 
         {
 
-            if (Data.UsePool)
+            if (Data.UsePoolingSystem)
             {
-                SimpleSpawnManager.instance.DestroySpawnable(Data.UsePool, prefabReference, this);
+                SimpleSpawnManager.instance.DestroySpawnable(Data.UsePoolingSystem, prefabReference, this);
             }
             else Destroy(gameObject);
 
