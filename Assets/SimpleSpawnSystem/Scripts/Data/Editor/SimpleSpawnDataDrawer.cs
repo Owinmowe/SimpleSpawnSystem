@@ -149,8 +149,28 @@ namespace SimpleSpawnSystem.Data
                     EditorGUI.PropertyField(spawnableListRect, possibleSpawnsProperty);
                 }
 
+                var spawnOrderProperty = property.FindPropertyRelative("OrderType");
                 var spawnOrderRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
-                EditorGUI.PropertyField(spawnOrderRect, property.FindPropertyRelative("OrderType"));
+                EditorGUI.PropertyField(spawnOrderRect, spawnOrderProperty);
+
+                var spawnOrderType = GetCurrentOrderType(spawnOrderProperty.enumValueIndex);
+
+                switch (spawnOrderType)
+                {
+                    case SpawnOrderType.Sequential:
+                        break;
+                    case SpawnOrderType.Randomized:
+                        break;
+                    case SpawnOrderType.RandomNotRepeated:
+                        break;
+                    case SpawnOrderType.BySelectedIndex:
+                        var spawnableListRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
+                        EditorGUI.PropertyField(spawnableListRect, property.FindPropertyRelative("SelectedIndex"));
+                        break;
+                    default:
+                        break;
+                }
+
 
                 var spawnAreaProperty = property.FindPropertyRelative("AreaType");
                 var spawnAreaRect = new Rect(position.x, position.y + GetCurrentYPosition(30), position.width, GetStandardPropertyHeight());
@@ -259,6 +279,24 @@ namespace SimpleSpawnSystem.Data
                 if(arraySize > 1) fullPropertyHeight += 20 * arraySize;
             }
 
+            var spawnOrderProperty = property.FindPropertyRelative("OrderType");
+            var spawnOrderType = GetCurrentOrderType(spawnOrderProperty.enumValueIndex);
+
+            switch (spawnOrderType)
+            {
+                case SpawnOrderType.Sequential:
+                    break;
+                case SpawnOrderType.Randomized:
+                    break;
+                case SpawnOrderType.RandomNotRepeated:
+                    break;
+                case SpawnOrderType.BySelectedIndex:
+                    fullPropertyHeight += 30;
+                    break;
+                default:
+                    break;
+            }
+
             var spawnAreaProperty = property.FindPropertyRelative("AreaType");
             var spawnAreaType = GetCurrentSpawnAreaType(spawnAreaProperty.enumValueIndex);
 
@@ -340,6 +378,11 @@ namespace SimpleSpawnSystem.Data
         private SpawnAreaType GetCurrentSpawnAreaType(int enumIndex) 
         {
             return (SpawnAreaType)enumIndex;
+        }
+
+        private SpawnOrderType GetCurrentOrderType(int enumIndex) 
+        {
+            return (SpawnOrderType)enumIndex;
         }
 
         #endregion

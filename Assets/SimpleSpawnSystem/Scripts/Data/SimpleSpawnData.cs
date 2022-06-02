@@ -45,6 +45,8 @@ namespace SimpleSpawnSystem.Data
 
         public SpawnOrderType OrderType;
 
+        public int SelectedIndex;
+
         public SpawnAreaType AreaType;
 
         public TimerType TimerType;
@@ -108,6 +110,8 @@ namespace SimpleSpawnSystem.Data
 
             OrderType = SpawnOrderType.Sequential;
 
+            SelectedIndex = 0;
+
             AreaType = SpawnAreaType.OnCenterPoint;
 
             TimerType = TimerType.Fixed;
@@ -160,6 +164,8 @@ namespace SimpleSpawnSystem.Data
             PossibleSpawnPrefabs = data.PossibleSpawnPrefabs;
 
             OrderType = data.OrderType;
+
+            SelectedIndex = data.SelectedIndex;
 
             AreaType = data.AreaType;
 

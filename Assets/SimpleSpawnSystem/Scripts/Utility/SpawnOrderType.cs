@@ -6,7 +6,8 @@ namespace SimpleSpawnSystem.Utility
     {
         Sequential = 0,
         Randomized = 1,
-        RandomNotRepeated = 2
+        RandomNotRepeated = 2,
+        BySelectedIndex = 3
     };
 
 }

@@ -79,6 +79,10 @@ namespace SimpleSpawnSystem.Core
                         currentSpawnAction = DelegateSpawnRandomNotRepeatedUnit;
                         break;
 
+                    case SpawnOrderType.BySelectedIndex:
+                        currentSpawnAction = DelegateSpawnUnitBySelectedIndex;
+                        break;
+
                     default:
                         Debug.LogWarning("Spawn order type not implemented. Spawn order set to sequential.");
                         data.OrderType = SpawnOrderType.Sequential;
@@ -146,8 +150,8 @@ namespace SimpleSpawnSystem.Core
 
                 if (value == subscribedToSpawnEvent) return;
 
-                if(value) Timer.OnTimerReached += SpawnUnitByMethod;
-                else Timer.OnTimerReached -= SpawnUnitByMethod;
+                if(value) Timer.OnTimerReached += SpawnUnit;
+                else Timer.OnTimerReached -= SpawnUnit;
 
                 subscribedToSpawnEvent = value;
                 data.AutoStartSpawning = value;
@@ -223,6 +227,18 @@ namespace SimpleSpawnSystem.Core
 
         public List<Spawnable> SpawnedUnits => spawnedUnits;
 
+        public int SelectedIndex 
+        {
+            set 
+            {
+                selectedIndex = value;
+            }
+            get 
+            {
+                return selectedIndex;
+            } 
+        }
+
         #endregion
 
         #region Serializable Fields
@@ -232,6 +248,8 @@ namespace SimpleSpawnSystem.Core
         [SerializeField] [HideInInspector] private int currentSequentialSpawn = 0;
 
         [SerializeField] [HideInInspector] private List<int> currentRandomNotRepeatedList = new List<int>();
+
+        [SerializeField] [HideInInspector] private int selectedIndex = 0;
 
         #endregion
 
@@ -265,6 +283,8 @@ namespace SimpleSpawnSystem.Core
 
         private SpawnMethod DelegateSpawnRandomNotRepeatedUnit = default;
 
+        private SpawnMethod DelegateSpawnUnitBySelectedIndex = default;
+
         #endregion
 
         private GetSpawnLocation DelegateSpawnLocationOnCenter = default;
@@ -291,6 +311,7 @@ namespace SimpleSpawnSystem.Core
             DelegateSpawnRandomUnit = SpawnRandomUnit;
             DelegateSpawnSequentialUnit = SpawnSequentialUnit;
             DelegateSpawnRandomNotRepeatedUnit = SpawnRandomNotRepeatedUnit;
+            DelegateSpawnUnitBySelectedIndex = SpawnUnitBySelectedIndex;
 
             DelegateSpawnLocationOnCenter = SpawnLocationOnCenter;
             DelegateSpawnLocationRandomCircle = SpawnLocationRandomCircle;
@@ -380,35 +401,10 @@ namespace SimpleSpawnSystem.Core
 
         }
 
-        public void SpawnUnitByMethod()
+        public void SpawnUnit()
         {
             var spawnable = currentSpawnAction();
             spawnable.OnGotReleased += spawn => spawnedUnits.Remove(spawn);
-        }
-
-        public Spawnable SpawnUnitByIndex(int index)
-        {
-
-            if(index > PossibleSpawns.Length || index < 0) 
-            {
-                Debug.LogWarning("Spawn index " + index + " is incorrect. Unit can't be spawned.");
-                return null;
-            }
-
-            Spawnable spawnablePrefab = PossibleSpawns[index];
-
-            var spawnable = creatorManager.GetSpawnable(data.UsePoolingSystem, spawnablePrefab);
-
-            spawnable.transform.position = currentSpawnLocation();
-
-            spawnable.transform.SetParent(transform);
-
-            spawnedUnits.Add(spawnable);
-
-            spawnable.ApplySpawnModifiers(data, spawnablePrefab);
-
-            return spawnable;
-
         }
 
         public void DestroyAllUnits() 
@@ -493,6 +489,31 @@ namespace SimpleSpawnSystem.Core
             CurrentRandomNotRepeatedList.RemoveAt(0);
 
             if (CurrentRandomNotRepeatedList.Count == 0) RecreateSpawnIndexList();
+
+            return spawnable;
+
+        }
+
+        private Spawnable SpawnUnitBySelectedIndex()
+        {
+
+            if (selectedIndex > PossibleSpawns.Length || selectedIndex < 0)
+            {
+                Debug.LogWarning("Spawn index " + selectedIndex + " is incorrect. Unit can't be spawned.");
+                return null;
+            }
+
+            Spawnable spawnablePrefab = PossibleSpawns[selectedIndex];
+
+            var spawnable = creatorManager.GetSpawnable(data.UsePoolingSystem, spawnablePrefab);
+
+            spawnable.transform.position = currentSpawnLocation();
+
+            spawnable.transform.SetParent(transform);
+
+            spawnedUnits.Add(spawnable);
+
+            spawnable.ApplySpawnModifiers(data, spawnablePrefab);
 
             return spawnable;
 
