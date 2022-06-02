@@ -11,7 +11,7 @@ namespace SimpleSpawnSystem.Data
 
         public bool Empty 
         {
-            set 
+            private set 
             {
                 empty = value;
             } 
@@ -25,13 +25,13 @@ namespace SimpleSpawnSystem.Data
 
         #region Serializable Fields
 
+        [SerializeField] [HideInInspector] private string hash = "";
+
+        [SerializeField] [HideInInspector] private bool empty = true;
+
         #endregion
 
         #region Private Fields
-
-        private string hash = "";
-
-        private bool empty = true;
 
         #endregion
 

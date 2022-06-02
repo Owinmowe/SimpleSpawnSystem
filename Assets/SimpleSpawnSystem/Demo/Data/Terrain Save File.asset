@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6438a21defbdbd2498d62a5e1bcc8225, type: 3}
   m_Name: Terrain Save File
   m_EditorClassIdentifier: 
+  hash: "{\"SpawnColor\":{\"r\":0.0,\"g\":0.09941649436950684,\"b\":1.0,\"a\":1.0},\"SpawnName\":\"Terrain
+    Spawn\",\"AutoStartSpawning\":true,\"UsePool\":true,\"PoolDefaultCapacity\":10,\"PoolMaxSize\":1000,\"UseUnitParentTransform\":false,\"UnitParentTransform\":{\"instanceID\":0},\"UseSpawnParentTransform\":false,\"SpawnParentTransform\":{\"instanceID\":0},\"UseUnityTerrain\":true,\"UnityTerrain\":{\"instanceID\":22720},\"TerrainLayer\":{\"serializedVersion\":\"2\",\"m_Bits\":64},\"TerrainOffset\":0.0,\"AlignWithUnityTerrain\":true,\"PossibleSpawnPrefabs\":[{\"instanceID\":22724},{\"instanceID\":22726},{\"instanceID\":22728},{\"instanceID\":22730},{\"instanceID\":22732},{\"instanceID\":22734},{\"instanceID\":22736},{\"instanceID\":22738}],\"OrderType\":1,\"AreaType\":1,\"TimerType\":0,\"MinRandomTime\":1.0,\"MaxRandomTime\":2.0,\"FixedTime\":1.0,\"CircleRadius\":20.0,\"SphereRadius\":1.0}\xE7"
+  empty: 0
