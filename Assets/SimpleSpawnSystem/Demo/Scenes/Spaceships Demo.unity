@@ -371,7 +371,7 @@ MonoBehaviour:
     UseUnitParentTransform: 0
     UnitParentTransform: {fileID: 0}
     UseSpawnParentTransform: 1
-    SpawnParentTransform: {fileID: 0}
+    SpawnParentTransform: {fileID: 136898938}
     UseUnityTerrain: 0
     UnityTerrain: {fileID: 0}
     TerrainLayer:
@@ -397,7 +397,7 @@ MonoBehaviour:
     UseUnitParentTransform: 0
     UnitParentTransform: {fileID: 0}
     UseSpawnParentTransform: 1
-    SpawnParentTransform: {fileID: 0}
+    SpawnParentTransform: {fileID: 2009475369}
     UseUnityTerrain: 0
     UnityTerrain: {fileID: 0}
     TerrainLayer:

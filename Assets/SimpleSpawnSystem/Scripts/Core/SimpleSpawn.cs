@@ -146,8 +146,8 @@ namespace SimpleSpawnSystem.Core
 
                 if (value == subscribedToSpawnEvent) return;
 
-                if(value) Timer.OnTimerReached += SpawnUnit;
-                else Timer.OnTimerReached -= SpawnUnit;
+                if(value) Timer.OnTimerReached += SpawnUnitByMethod;
+                else Timer.OnTimerReached -= SpawnUnitByMethod;
 
                 subscribedToSpawnEvent = value;
                 data.AutoStartSpawning = value;
@@ -237,9 +237,9 @@ namespace SimpleSpawnSystem.Core
 
         #region Private Fields
 
-        private delegate Spawnable SpawnAction();
+        private delegate Spawnable SpawnMethod();
 
-        private SpawnAction currentSpawnAction;
+        private SpawnMethod currentSpawnAction;
 
         private delegate Vector3 GetSpawnLocation();
 
@@ -259,11 +259,11 @@ namespace SimpleSpawnSystem.Core
 
         #region Spawn Methods Delegates
 
-        private SpawnAction DelegateSpawnRandomUnit = default;
+        private SpawnMethod DelegateSpawnRandomUnit = default;
 
-        private SpawnAction DelegateSpawnSequentialUnit = default;
+        private SpawnMethod DelegateSpawnSequentialUnit = default;
 
-        private SpawnAction DelegateSpawnRandomNotRepeatedUnit = default;
+        private SpawnMethod DelegateSpawnRandomNotRepeatedUnit = default;
 
         #endregion
 
@@ -380,12 +380,36 @@ namespace SimpleSpawnSystem.Core
 
         }
 
-        public void SpawnUnit()
+        public void SpawnUnitByMethod()
         {
             var spawnable = currentSpawnAction();
             spawnable.OnGotReleased += spawn => spawnedUnits.Remove(spawn);
         }
 
+        public Spawnable SpawnUnitByIndex(int index)
+        {
+
+            if(index > PossibleSpawns.Length || index < 0) 
+            {
+                Debug.LogWarning("Spawn index " + index + " is incorrect. Unit can't be spawned.");
+                return null;
+            }
+
+            Spawnable spawnablePrefab = PossibleSpawns[index];
+
+            var spawnable = creatorManager.GetSpawnable(data.UsePoolingSystem, spawnablePrefab);
+
+            spawnable.transform.position = currentSpawnLocation();
+
+            spawnable.transform.SetParent(transform);
+
+            spawnedUnits.Add(spawnable);
+
+            spawnable.ApplySpawnModifiers(data, spawnablePrefab);
+
+            return spawnable;
+
+        }
 
         public void DestroyAllUnits() 
         {

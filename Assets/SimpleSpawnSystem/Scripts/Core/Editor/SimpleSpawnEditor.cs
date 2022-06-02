@@ -55,7 +55,7 @@ namespace SimpleSpawnSystem.Core
 
                 if (GUILayout.Button("Spawn Unit"))
                 {
-                    script.SpawnUnit();
+                    script.SpawnUnitByMethod();
                 }
 
                 if (GUILayout.Button("Destroy All Units"))
